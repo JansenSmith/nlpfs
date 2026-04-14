@@ -173,6 +173,20 @@ LLM-initiated.
 
 ---
 
+## Cold-Start Protocol
+
+Triggered when the last entry in `completed.md` is older than 7 days. Supersedes the normal session-start lint check — run this instead.
+
+1. Read all files listed in the Index.
+2. Verify the Index against actual files on disk — flag orphans or missing entries.
+3. Check for drift: stale Next Steps items, blocked items not marked as blocked, improvements that may no longer be relevant.
+4. Surface a single re-orientation summary: current project state, last work done, one recommended next action.
+5. Proceed normally from there.
+
+Goal: "what's next?" answerable in under 60 seconds after any gap.
+
+---
+
 ## Behaviors
 
 LLM behavioral instructions live in `main.md` under `## Behaviors`, or in `behaviors.md` once split. All learned corrections go here explicitly — nothing behavioral accumulates in hidden folders.
@@ -181,7 +195,7 @@ Common types: session startup, role vocabulary, proactive surfacing, accumulatio
 
 Universal behaviors (apply to every project via this file):
 - When writing a reference to another file, immediately check if a back-reference belongs in the target file.
-- At session start, check `completed.md` for the last lint entry; if absent or older than 36 hours, run lint before surfacing any other work.
+- At session start, check `completed.md` for the last entry date; if older than 7 days, run the Cold-Start Protocol. Otherwise check the last lint entry; if absent or older than 36 hours, run lint before surfacing any other work.
 - At prep-for-exit, after sessions touching many files, or after a major accumulation cycle, run lint: check for orphaned files, stale references, and contradictions.
 - Every ingest appended to `completed.md` with source name, path, and all project files touched.
 - When asked what to do next, run the "What's Next?" Protocol.

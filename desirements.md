@@ -155,6 +155,21 @@ LLM-initiated: the builder shouldn't need to ask.
 
 ---
 
+## Cold-Start Protocol
+
+Triggered when the last entry in `completed.md` is older than 7 days. Distinct from warm-start lint — supersedes it when triggered.
+
+The problem: after a gap, the LLM arrives with no recent context and runs the same session-start checklist designed for continuity. It sees a lint timestamp but has no sense of what the stable state looked like, whether the Index is accurate, or whether stale items are still real. Re-entry cost must be near-zero; "what's next?" must be answerable in under 60 seconds.
+
+Protocol:
+1. Read all files listed in the Index.
+2. Verify the Index against actual files on disk — flag orphans or missing entries.
+3. Check for drift: stale Next Steps, blocked items not marked as blocked, improvements that may no longer apply.
+4. Surface a single re-orientation summary: current state, last work done, one recommended next action.
+5. Proceed normally from there.
+
+---
+
 ## Section Headings and Cross-References
 
 ### Heading Length
@@ -196,7 +211,7 @@ Common behavior types:
 - **Tool usage** — which tools to use for which actions
 - **Archive behavior** — when session notes move to `archive/`
 - **Ingest log** — every ingest appended to `completed.md` with source name, path, and all files touched
-- **Lint trigger** — LLM runs lint at session start if last lint is older than 36 hours; also at prep-for-exit, after sessions touching many files, or after a major accumulation cycle
+- **Lint trigger** — at session start, check last entry date in `completed.md`; if older than 7 days, run Cold-Start Protocol; otherwise run lint if last lint is older than 36 hours. Also at prep-for-exit, after sessions touching many files, or after a major accumulation cycle.
 - **Cross-reference** — when writing a reference to another file, immediately check if a back-reference belongs in the target file
 
 ---
