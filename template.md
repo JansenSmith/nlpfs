@@ -5,8 +5,8 @@
 <stated goal>
 
 ## Index
-- `main.md` — this file; the project brain
-- `CLAUDE.md` — symlink to main.md (backwards compatibility with Claude Code auto-load)
+- `main.md` — this file; project brain
+- `CLAUDE.md` — symlink to main.md (Claude Code auto-load compatibility)
 - `_filesys.md` — NLP file system operational principles
 
 ## Behaviors

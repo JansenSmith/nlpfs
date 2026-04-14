@@ -1,29 +1,29 @@
 # NLP File System — Desirements
 
-Patterns and principles observed across all projects in this directory, synthesized with external best-practice research. This is the source of truth for how projects here are structured and how they should behave.
+Patterns and principles observed across all projects, synthesized with external research. Source of truth for how projects here are structured and behave.
 
 ---
 
 ## What This Is
 
-A **NLP file system** is a directory of Markdown files that functions as the persistent memory and operating context for an LLM. Rather than relying on chat history or model memory, all state lives on disk in human-readable files. The LLM navigates, reads, writes, and maintains these files as its primary mode of operation across sessions.
+**NLP file system** — directory of Markdown files functioning as persistent LLM memory and operating context. All state on disk in human-readable files. LLM navigates, reads, writes, and maintains them across sessions.
 
-Named equivalents in the literature:
-- **Context-as-Code** — context externalized, version-controlled, and persistent
-- **Filesystem-first memory** — agents write artifacts to disk and remember through selective reading
-- **Project Brain** — a living context document that eliminates re-explaining project details each session
-- **Semantic File System (LSFS)** — NL queries and file content replace traditional path-based commands; shown to improve retrieval accuracy 15%+ over path navigation
-- **Modular context** — topically coherent files split by load trigger; monolithic context is the anti-pattern
+Named equivalents:
+- **Context-as-Code** — context externalized, version-controlled, persistent
+- **Filesystem-first memory** — agents write artifacts to disk; remember through selective reading
+- **Project Brain** — living context doc that eliminates re-explaining each session
+- **Semantic File System (LSFS)** — NL queries + file content replace path-based commands; 15%+ retrieval accuracy improvement
+- **Modular context** — topically coherent files split by load trigger; monolithic = anti-pattern
 
 ---
 
 ## main.md — The Project Brain
 
-Every project has a `main.md` as its entry point and clearinghouse. `CLAUDE.md` is a symlink to `main.md` for backwards compatibility with Claude Code's auto-load behavior — `main.md` is the actual file.
+Every project has `main.md` as entry point and clearinghouse. `CLAUDE.md` is a symlink for Claude Code auto-load compatibility — `main.md` is the actual file.
 
-**main.md always references outward. No other file references back to it.**
+**main.md always references outward. No other file references back.**
 
-If a file needs to cite content that currently lives in main.md, that content should be extracted to its own file first — the citation need is a split trigger.
+File needs to cite content in main.md → extract first. Citation need = split trigger.
 
 ### Standard Sections
 
@@ -31,89 +31,90 @@ If a file needs to cite content that currently lives in main.md, that content sh
 # Project Name
 ## Goal
 ## [Domain sections — extracted to files as they grow]
-## Index               ← catalog of all files with one-line descriptions; always includes main.md and CLAUDE.md symlink; splits to index.md when entries grow beyond a flat list
+## Index               ← catalog of all files; always includes main.md and CLAUDE.md symlink; splits to index.md when grown
 ## Behaviors           ← LLM behavioral instructions for this project (see below)
 ## Next Steps          ← active task list (always here; see below)
 ```
 
 ### Principles
 
-- **Under ~200 lines** — curated ruthlessly. Only what the LLM wouldn't get right without it.
+- **Under ~200 lines** — curated ruthlessly. Only what LLM wouldn't get right without it.
 - **References out, never duplicates** — point to where details live.
 - **First-person singular** — "my", "I", never "our/we".
-- **No hidden folders for project notes** — all notes are `.md` files in the project directory or subdirectories.
-- **Self-maintaining** — at session end ("prep to exit"), current state and next steps are written back.
+- **No hidden folders** — all notes are `.md` files in project directory or subdirectories.
+- **Self-maintaining** — at session end ("prep to exit"), current state and next steps written back.
 
 ---
 
 ## Next Steps — Active Task List
 
-The active task list lives permanently in `main.md` as `## Next Steps`. It is intentionally small and never splits to a separate file.
+Lives permanently in `main.md ## Next Steps`. Intentionally small. Never splits.
 
-**Rules (from GTD + Personal Kanban):**
-- **3–7 items maximum** — Personal Kanban WIP limit. When the list is full, new items go to improvements rather than being lost — hitting the ceiling is a signal to finish something or capture to improvements, not to stop recording.
-- **Next actions only** — each item is concrete, unblocked, and doable right now (GTD). Not projects or vague goals. If an item can't be written as a specific physical action, it's an improvement — capture it there instead.
+**Rules (GTD + Personal Kanban):**
+- **3–7 items max** — WIP limit. Full → new items to improvements, not lost. Ceiling = finish or capture, not stop recording.
+- **Next actions only** — concrete, unblocked, doable now. Not projects or vague goals. Can't write as physical action → improvement.
 - **Right scope:** "add entry to pieces.md" — wrong scope: "improve the pipeline"
-- Completed items move to completed.md.
+- Completed → completed.md.
 
-**Badly-scoped items** belong in improvements. GTD distinguishes next actions from larger goals that require clarification before they can be acted on. Improvements serve as that holding space — any scope. When surfaced by the LLM, the question becomes: what's the next concrete action, or does this warrant a new project?
+**Badly-scoped items** → improvements. Improvements = holding space for any scope. When surfaced: what's next concrete action, or new project?
 
-**Blocked items** do not belong in Next Steps. When a blocked item is identified, ask permission to migrate it to improvements with an appropriate tag. This happens before surfacing any new work.
+**Blocked items** don't belong in Next Steps. Identified → ask permission to migrate to improvements with tag. Before surfacing any new work.
 
-**"What's next?" protocol** — when the person asks what to do next, or Next Steps is empty or all-blocked, the LLM should:
-1. Check Next Steps for blocked items. For each one, ask permission to migrate it to improvements with a suggested tag. Handle all blocked items before proceeding.
-2. If unblocked items remain in Next Steps, surface one of those. If Next Steps is now empty, scan improvements (hi/hi first, then lo/hi or hi/lo based on context and vibes, then lo/lo).
-3. Pick **one** — 60% vibes, 40% priority order. Present it as a single binary yes/no choice. Not a list.
-4. If yes: for an improvement, create a concrete next action citing it via `file.md#anchor`.
+**What's next? protocol** — asked what to do next, or Next Steps empty/all-blocked:
+1. Check Next Steps for blocked items. Ask permission to migrate each to improvements with suggested tag. Handle all blocked first.
+2. Unblocked remain → surface one. Empty → scan improvements (hi/hi first, then lo/hi or hi/lo on context and vibes, then lo/lo).
+3. Pick **one** — 60% vibes, 40% priority. Single binary yes/no. Not a list.
+4. Yes → create concrete next action citing via `file.md#anchor`.
 
-**"Prep for exit"** — when the person signals they are wrapping up, the LLM performs an internal audit of everything touched this session and ensures each piece is saved: either accumulated into permanent project files or captured in a session notes file. Nothing touched in the session should exist only in chat history.
+**Prep for exit** — person signals wrap-up → audit everything touched; save to permanent files or session notes. Nothing touched lives only in chat.
 
 ---
 
 ## Section and File Types
 
-New content lands in `main.md` first. When a section grows large enough to stand alone — i.e., it could be read in isolation and make sense — split it to a named file. The split cycle:
+New content lands in `main.md` first. Section grows large enough to stand alone → split to named file.
 
-1. Content accretes in a `main.md` section.
-2. Section grows coherent and large → extract to a named `.md` file.
-3. Replace the section in `main.md` with a one-line reference.
-4. Add the file to Project Structure.
-5. The new file follows the same principles: references out, first-person singular, no duplication.
+Split cycle:
+1. Content accretes in main.md section.
+2. Grows coherent and large → extract to named `.md` file.
+3. Replace section in main.md with one-line reference.
+4. Add file to Index.
+5. New file: references out, first-person singular, no duplication.
 
-Identify the section/file type when creating or splitting:
+File types:
 
 | Type | Purpose | Examples |
 |---|---|---|
 | **Log** | Append-only history | `completed.md`, `session-YYYY-MM-DD.md` |
 | **Backlog** | Tagged improvement queue; items pull into Next Steps | `improvements.md` or `## Improvements` in main.md |
 | **Catalog** | Inventory of domain entities | `pieces.md`, `filaments.md`, `characters/` |
-| **Process** | Step-by-step how-to for a recurring workflow | `slicer.md`, `assembly.md` |
-| **Reference** | Dense lookup material | `glossary.md`, `tools.md`, `materials.md` — `## Glossary` starts in main.md, splits when grown |
+| **Process** | Step-by-step how-to for recurring workflow | `slicer.md`, `assembly.md` |
+| **Reference** | Dense lookup material | `glossary.md`, `tools.md` — `## Glossary` starts in main.md, splits when grown |
 | **Exploration** | Unstructured ideation | `ideas.md` |
 | **Research** | Findings from external sources | `topic-notes.md` |
 | **Formal** | Authored documents | `policy.md`, `lessons.md` |
 | **Behaviors** | Accumulated behavioral corrections | `behaviors.md` |
-| **Index** | Content-oriented catalog of all files and sections | starts as `## Index` in main.md; splits to `index.md` via standard accumulation when grown |
+| **Index** | Catalog of all files and sections | starts as `## Index` in main.md; splits to `index.md` when grown |
 | **Sources** | Immutable raw ingested material | `sources/<name>.md` — converted to Markdown at ingest; never edited |
 
-### Backlog (improvements section or file)
+### Backlog
 
-The backlog holds all deferred work. It may live as a `## Improvements` section in main.md or as a separate `improvements.md` — whichever fits the project's size. Items are tagged by importance × urgency, with the tag in the section heading:
+`## Improvements` in main.md or `improvements.md`. Tagged by importance × urgency:
 
-- **[hi/hi]** — Implement proactively before or during the next active work cycle.
-- **[lo/hi]** — Consider for the current or next work cycle.
+- **[hi/hi]** — Implement proactively before/during next active work cycle.
+- **[lo/hi]** — Consider for current or next work cycle.
 - **[hi/lo]** — High importance, not urgent. Surface during downtime or lulls.
 - **[lo/lo]** — Surface when wistful with no hi/lo items remaining.
 
-Tag definitions and section headers belong in the backlog itself. When to proactively surface items is project-specific — declared in Behaviors.
+Tag definitions belong in the backlog. When to surface: project-specific, declared in Behaviors.
 
-**Surfacing is a clarification moment.** When the LLM raises an improvement, the question is: what's the next concrete action? That action goes into Next Steps. GTD: identify only the immediate next action, not all future steps upfront. If the improvement is large enough to warrant its own NLP file system, it becomes a new project instead.
+**Surfacing = clarification moment.** LLM raises improvement → next concrete action? → Next Steps. Large enough for own NLP file system → new project.
 
 ### Task Flow
 
 ```
 capture   →  improvements (tagged — any scope, including badly-scoped or multi-step)
-surface   →  LLM raises improvement at the right moment; clarify into a next action or new project
+surface   →  LLM raises at right moment; clarify into next action or new project
 pull      →  main.md ## Next Steps (concrete, unblocked)
 finish    →  completed.md (append-only log)
 ```
@@ -122,51 +123,51 @@ finish    →  completed.md (append-only log)
 
 ## Ingest
 
-When the builder brings in an external source, that is an ingest. Workflow:
+Ingest workflow:
 
-1. Fetch or read the source.
-2. Convert to clean Markdown — strip HTML, add heading structure if plain text, convert PDFs. Markdown is required for anchor support.
-3. Save to `sources/<name>` with a standard immutable header:
+1. Fetch or read source.
+2. Convert to clean Markdown — strip HTML, add heading structure if plain text, convert PDFs. Required for anchor support.
+3. Save to `sources/<name>` with immutable header:
    ```
    > **Immutable source.** Do not edit. Fetched YYYYMMDD-HHMMSS.
    > Original: <url or provenance>
    ```
-4. Discuss and synthesize with the person.
-5. Distribute synthesis across all relevant project files — a single ingest may touch Process, Reference, Behaviors, and more simultaneously.
-6. Log in `completed.md` with source name, path, and all files touched.
+4. Discuss and synthesize.
+5. Distribute synthesis across all relevant files — one ingest may touch Process, Reference, Behaviors, and more simultaneously.
+6. Log in `completed.md` with source name, path, all files touched.
 
-Each file that receives synthesis cites `sources/<name>#<anchor>` to the relevant section, not a raw URL. For oversized sources, store key excerpts. Sources are immutable — named descriptively, never edited after creation.
+Receiving files cite `sources/<name>#<anchor>`, not raw URL. Oversized sources → store key excerpts. Sources immutable — descriptive name, never edited after creation.
 
-**File-back on query:** when a question produces a valuable synthesis — a comparison, analysis, or connection — file it into the appropriate project file. It shouldn't disappear into chat history. Explorations compound in project files just like ingested sources do.
+**File-back on query:** valuable synthesis (comparison, analysis, connection) → file into project, not chat. Explorations compound.
 
 ---
 
 ## Lint / Periodic Audit
 
-Lint is a periodic self-check: orphaned files (not referenced from main.md), stale anchors, contradictions between files, knowledge gaps.
+Periodic self-check: orphaned files, stale anchors, contradictions, knowledge gaps.
 
 When to run:
-- **Session start**: check `completed.md` for the last lint entry; if absent or older than 36 hours, run lint before surfacing any other work
+- **Session start**: check `completed.md` for last lint entry; absent or >36h → run lint before any work
 - During prep-for-exit
-- When a session touches many files
-- After a major accumulation cycle
+- Session touches many files
+- After major accumulation cycle
 
-LLM-initiated: the builder shouldn't need to ask.
+LLM-initiated: builder shouldn't need to ask.
 
 ---
 
 ## Cold-Start Protocol
 
-Triggered when the last entry in `completed.md` is older than 7 days. Distinct from warm-start lint — supersedes it when triggered.
+Triggered when last entry in `completed.md` is older than 7 days. Supersedes warm-start lint.
 
-The problem: after a gap, the LLM arrives with no recent context and runs the same session-start checklist designed for continuity. It sees a lint timestamp but has no sense of what the stable state looked like, whether the Index is accurate, or whether stale items are still real. Re-entry cost must be near-zero; "what's next?" must be answerable in under 60 seconds.
+Problem: after gap, LLM arrives with no recent context, runs continuity checklist. Sees lint timestamp but no sense of stable state. Re-entry cost must be near-zero; "what's next?" answerable in <60 seconds.
 
 Protocol:
-1. Read all files listed in the Index.
-2. Verify the Index against actual files on disk — flag orphans or missing entries.
-3. Check for drift: stale Next Steps, blocked items not marked as blocked, improvements that may no longer apply.
-4. Surface a single re-orientation summary: current state, last work done, one recommended next action.
-5. Proceed normally from there.
+1. Read all files in Index.
+2. Verify Index against actual files on disk — flag orphans or missing.
+3. Check for drift: stale Next Steps, blocked items not marked blocked, irrelevant improvements.
+4. Surface single re-orientation summary: current state, last work done, one recommended next action.
+5. Proceed normally.
 
 ---
 
@@ -174,88 +175,88 @@ Protocol:
 
 ### Heading Length
 
-Keep section headings to **3–5 words** (after any tag prefix). Detail goes in the body. Short headings produce clean, stable Markdown anchors — a heading change breaks every link that references it.
+**3–5 words** after any tag prefix. Detail in body. Short headings = clean, stable anchors — heading change breaks every link.
 
 - Good: `## [hi/hi] Oil finish rags`
 - Avoid: `## [hi/hi] Acquire new rags for use during oil finish application`
 
-**Use headings, not bold text, for any content another file might reference.** Bold text has no anchor. A heading auto-generates one: lowercase, spaces → hyphens, special characters stripped. `### My Section` → `#my-section`. If you need to link to something, make it a heading first.
+**Headings, not bold text, for referenceable content.** Bold has no anchor. Heading auto-generates one: lowercase, spaces → hyphens, special chars stripped. `### My Section` → `#my-section`. Need to link → make it heading first.
 
 ### Cross-References
 
-Reference specific sections using `file.md#anchor` syntax:
+`file.md#anchor` syntax:
 
 ```
 Cut rabbet on all stock — see `improvements.md#hihi-frame-rabbet-fit`
 ```
 
-Anchors are auto-generated from headings: lowercase, spaces → hyphens, special characters stripped. Tag prefix `[hi/hi]` becomes `hihi-` in the anchor.
+Anchors auto-generated: lowercase, spaces → hyphens, special chars stripped. `[hi/hi]` → `hihi-` in anchor.
 
-These links may not be clickable in all contexts but are precise human-readable pointers that survive copy-paste and search.
+Not clickable everywhere, but precise human-readable pointers that survive copy-paste and search.
 
-**Cross-references should be bidirectional where meaningful.** When file A references file B, check immediately whether a back-reference belongs in file B. Behavioral rule: when writing any reference, stop and check before moving on.
+**Bidirectional where meaningful.** A references B → check if back-ref belongs in B. Behavioral rule: when writing any reference, stop and check before moving on.
 
 ---
 
 ## Behaviors
 
-LLM behavioral instructions live in `main.md` under `## Behaviors`, or in `behaviors.md` once split. These tell the LLM how to operate in this specific project — role, startup ritual, proactive actions, conventions, and any corrections learned across sessions. Start inline in main.md; split to `behaviors.md` using the same split-when-coherent rule.
+Behavioral instructions in `main.md ## Behaviors` or `behaviors.md` once split. Tell LLM how to operate: role, startup ritual, proactive actions, conventions, corrections. Start inline; split using same split-when-coherent rule.
 
-**All learned behaviors go here explicitly.** When a correction is made in a session, write it into Behaviors immediately. Nothing behavioral should accumulate silently in hidden folders.
+**All corrections go here explicitly.** Correction made → write into Behaviors immediately. Nothing behavioral accumulates silently in hidden folders.
 
 Common behavior types:
 - **Session startup** — what to read at session start
-- **Role vocabulary** — how to refer to the person using this project
+- **Role vocabulary** — how to refer to person using this project
 - **Proactive surfacing** — what to surface without being asked, and when
-- **Accumulation triggers** — when to append to log/catalog/backlog files
-- **Tool usage** — which tools to use for which actions
+- **Accumulation triggers** — when to append to log/catalog/backlog
+- **Tool usage** — which tools for which actions
 - **Archive behavior** — when session notes move to `archive/`
-- **Ingest log** — every ingest appended to `completed.md` with source name, path, and all files touched
-- **Lint trigger** — at session start, check last entry date in `completed.md`; if older than 7 days, run Cold-Start Protocol; otherwise run lint if last lint is older than 36 hours. Also at prep-for-exit, after sessions touching many files, or after a major accumulation cycle.
-- **Cross-reference** — when writing a reference to another file, immediately check if a back-reference belongs in the target file
+- **Ingest log** — every ingest appended to `completed.md` with source name, path, all files touched
+- **Lint trigger** — session start: check last entry date in `completed.md`; >7 days → Cold-Start Protocol; otherwise lint if last lint >36h. Also at prep-for-exit, heavy sessions, major accumulation.
+- **Cross-reference** — writing ref to another file → immediately check if back-ref belongs in target
 
 ---
 
 ## Role Vocabulary
 
-Each project names who the human is, declared in Behaviors. If unspecified at project creation, ask: *"How should I refer to you in this project? (artist, player, educator, user, ...)"*
+Each project names who the human is, declared in Behaviors. If unspecified at creation, ask: *"How should I refer to you? (artist, player, educator, user, ...)"*
 
 ---
 
 ## Session Notes
 
-Written to `session-YYYY-MM-DD.md` in the project root during the session. After content is integrated into permanent files, moved to `archive/`. Not read unless explicitly requested.
+Written to `session-YYYY-MM-DD.md` in project root. After integration into permanent files, moved to `archive/`. Not read unless explicitly requested.
 
 ---
 
 ## No Stubs
 
-Do not create a file until there is content to put in it.
+No file until content exists.
 
 ---
 
 ## Project Lifecycle
 
-Every project has a state. The state determines which apparatus is active and what maintenance the LLM performs.
+Every project has a state. State determines apparatus and maintenance.
 
 | State | Description | Apparatus |
 |---|---|---|
-| **active** | Being worked on; has open next actions or improvements | Full: Next Steps, Improvements, Behaviors, lint, cold-start |
+| **active** | Being worked on; open next actions or improvements | Full: Next Steps, Improvements, Behaviors, lint, cold-start |
 | **reference** | Lookup/how-to content; not a tracked project | Index + content only; no task machinery |
-| **dormant** | Was active; stalled on something external; not abandoned | Status declares blocker; Improvements preserved; lint still runs |
+| **dormant** | Was active; stalled on external blocker; not abandoned | Status declares blocker; Improvements preserved; lint still runs |
 | **archived** | Closed, done, or abandoned; read-only | Status declares archived; no further maintenance |
 
 Declared in `## Status` in `main.md`.
 
 ### Retirement Protocol
 
-**Active → dormant**: When all Next Steps are blocked and no unblocked work exists, ask the builder to confirm dormancy. Update Status: `Dormant. Waiting for: [X].` Empty Next Steps. Keep Improvements.
+**Active → dormant**: All Next Steps blocked, no unblocked work → confirm dormancy with builder. Status: `Dormant. Waiting for: [X].` Empty Next Steps. Keep Improvements.
 
-**Active → reference**: When a project is revealed to be reference material (no tasks, just content). Strip Next Steps and Improvements. Update Status: `Reference. No task tracking.` Restructure main.md around content sections if needed.
+**Active → reference**: Project revealed to be reference material (no tasks, just content). Strip Next Steps and Improvements. Status: `Reference. No task tracking.` Restructure main.md if needed.
 
-**Active/dormant → archived**: When the project is finished or explicitly abandoned. Update Status: `Archived [date]. [Reason].` No further lint or cold-start.
+**Active/dormant → archived**: Finished or explicitly abandoned. Status: `Archived [date]. [Reason].` No further lint or cold-start.
 
-**Reference/dormant → active**: When work resumes or tasks emerge. Update Status accordingly. Restore apparatus if removed.
+**Reference/dormant → active**: Work resumes or tasks emerge. Update Status. Restore apparatus if removed.
 
 ---
 
@@ -263,60 +264,56 @@ Declared in `## Status` in `main.md`.
 
 | Layer | Location | What belongs here |
 |---|---|---|
-| **Project files** | `<project>/*.md` | Everything — domain knowledge, behaviors, tasks, logs, learned corrections |
-| **Immutable sources** | `<project>/sources/` | Raw ingested material — converted to Markdown at ingest; never edited after creation |
+| **Project files** | `<project>/*.md` | Everything — domain knowledge, behaviors, tasks, logs, corrections |
+| **Immutable sources** | `<project>/sources/` | Raw ingested material — converted to Markdown at ingest; never edited |
 | **Global LLM config** | `~/.claude/CLAUDE.md`, settings | Behavior applying to all projects globally |
-| **Project memory folder** | `~/.claude/projects/<path>/memory/` | Should remain empty. If something accumulates here, migrate it to the project files. |
+| **Project memory folder** | `~/.claude/projects/<path>/memory/` | Should remain empty. Anything here → migrate to project files. |
 
-The project memory folder exists as a fallback but should not be used in a well-structured NLP file system — everything has an explicit home in the project files. Many things that might seem like "memory" — learned corrections, role vocabulary, behavioral conventions — belong in `## Behaviors` or `behaviors.md`.
+Memory folder = fallback; should not be used. Corrections, vocabulary, conventions → `## Behaviors` or `behaviors.md`.
 
 ---
 
 ## Scaffolding a New Project
 
-When told "I want a [type] project":
-
-1. Ask for the project name.
-2. Ask how to refer to the person, if not obvious from context.
-3. Ask the project type if not obvious: **active** (tracked work) or **reference** (lookup content). Default to active if unclear.
+1. Ask for project name.
+2. Ask how to refer to person, if not obvious.
+3. Ask project type if not obvious: **active** (tracked work) or **reference** (lookup content). Default active.
 4. Create `<name>/` directory.
-5. Copy the appropriate template to `<name>/main.md` — `template.md` for active, `template-reference.md` for reference. Fill in the project name, goal, and role.
-6. Run `ln -s main.md <name>/CLAUDE.md` (backwards compatibility with Claude Code auto-load).
-7. Copy `_filesys.md` into `<name>/_filesys.md`. Factory-managed; child LLMs must not edit it.
-8. Run `git init <name>/`. Stage the scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`), propose the commit message `"init commit"`, and wait for explicit approval before committing. Uses local git identity — no per-repo setup needed.
-9. Create additional files only if there is immediate content for them. No stubs.
-
-The project then builds itself out through the accumulation cycle.
+5. Copy appropriate template to `<name>/main.md` — `template.md` for active, `template-reference.md` for reference. Fill in name, goal, role.
+6. Run `ln -s main.md <name>/CLAUDE.md`.
+7. Copy `_filesys.md` into `<name>/_filesys.md`. Factory-managed; child LLMs must not edit.
+8. Run `git init <name>/`. Stage scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`), propose `"init commit"`, wait for explicit approval. Uses local git identity.
+9. Create additional files only if immediate content exists. No stubs.
 
 ### Upgrading Existing Projects
 
-When `_filesys.md` is updated in the factory, push it to child projects deliberately:
+`_filesys.md` updated → push to child projects deliberately:
 
-1. Copy the updated `_filesys.md` to each active and dormant child project: `cp _filesys.md <name>/_filesys.md`.
-2. Commit in each child repo: propose `"upgraded _filesys.md"` and wait for approval.
-3. Reference projects may also receive the upgrade — apply judgement; they benefit from convention updates but not task-flow changes.
+1. `cp _filesys.md <name>/_filesys.md` for each active and dormant project.
+2. Commit in each child repo: propose `"upgraded _filesys.md"`, wait for approval.
+3. Reference projects: apply judgement — benefit from convention updates, not task-flow changes.
 
-The factory does not auto-push. Upgrades are deliberate, one project at a time.
+Factory does not auto-push. Upgrades deliberate, one project at a time.
 
 ---
 
 ## Desirements Summary
 
-1. **Filesystem is the memory.** All durable state lives in `.md` files — including learned behaviors.
-2. **Single entry point.** `main.md` is the actual project brain. `CLAUDE.md` is a symlink for Claude Code compatibility.
-3. **Session startup ritual.** Startup files are injected via `@filename` harness expansion — not behavioral reads. The LLM sees them because the harness loads them at session start, not because it decided to read them. @-imports do not refresh mid-session — edits to an imported file take effect only at the next session start.
-4. **Active list is small.** 3–7 WIP-limited next actions in `main.md ## Next Steps`. Never a separate file. New items always captured to improvements, not lost.
-5. **Backlog is tagged.** Improvements section or file holds deferred work with hi/lo importance × urgency tags. Items pull into Next Steps when space opens.
-6. **Start monolithic, split when coherent.** New content goes into `main.md` first. Extract when a section can stand alone, or when another file needs to cite it.
-7. **Know the file type.** Use the taxonomy to name and structure new files correctly.
-8. **Short headings, precise references.** 3–5 word section headings. Cross-reference with `file.md#anchor` syntax. Use headings, not bold text, for referenceable content — only headings generate anchors.
+1. **Filesystem is the memory.** All durable state in `.md` files — including learned behaviors.
+2. **Single entry point.** `main.md` is actual project brain. `CLAUDE.md` is symlink for Claude Code compatibility.
+3. **Session startup ritual.** Startup files injected via `@filename` harness expansion — not behavioral reads. LLM sees them because harness loads at session start. @-imports don't refresh mid-session — edits take effect only at next session start.
+4. **Active list is small.** 3–7 WIP-limited next actions in `main.md ## Next Steps`. Never a separate file. New items always captured to improvements.
+5. **Backlog is tagged.** Improvements holds deferred work with hi/lo importance × urgency tags. Items pull into Next Steps when space opens.
+6. **Start monolithic, split when coherent.** New content into `main.md` first. Extract when section stands alone or another file needs to cite it.
+7. **Know the file type.** Use taxonomy to name and structure new files correctly.
+8. **Short headings, precise references.** 3–5 word headings. `file.md#anchor` syntax. Headings not bold text for referenceable content — only headings generate anchors.
 9. **Reference over duplication.** Files point to each other; no content repeated.
 10. **Role clarity.** Each project names who the human is. Ask if unspecified.
-11. **Self-maintaining.** `main.md` is updated at natural milestones. The project documents itself.
-12. **Sources are immutable.** Ingested material lives in `sources/` as clean Markdown, frozen at creation. Synthesized files cite `sources/<name>#<anchor>`, not raw URLs.
-13. **Ingest is an operation.** When a source enters the project, convert to Markdown, save to `sources/`, synthesize across all relevant files, log in `completed.md`.
-14. **File back.** Valuable query syntheses land in project files, not just chat. Explorations compound.
-15. **Lint periodically.** LLM checks for orphans, stale refs, and contradictions at session start (if >36h since last), at prep-for-exit, after heavy sessions, or after a major accumulation cycle.
+11. **Self-maintaining.** `main.md` updated at natural milestones. Project documents itself.
+12. **Sources are immutable.** Ingested material in `sources/` as clean Markdown, frozen at creation. Synthesized files cite `sources/<name>#<anchor>`, not raw URLs.
+13. **Ingest is an operation.** Source enters project → convert to Markdown, save to `sources/`, synthesize across all relevant files, log in `completed.md`.
+14. **File back.** Valuable query syntheses in project files, not chat. Explorations compound.
+15. **Lint periodically.** Orphans, stale refs, contradictions at session start (if >36h since last), at prep-for-exit, after heavy sessions or major accumulation.
 
 ---
 
@@ -333,7 +330,7 @@ The factory does not auto-push. Upgrades are deliberate, one project at a time.
 - [From Monolithic Prompts to Modular Context](https://dev.to/salt_creative/from-monolithic-prompts-to-modular-context-a-practical-architecture-for-agent-memory-1lcp) — split by topic when coherent; monolith is anti-pattern
 - [From Commands to Prompts: LLM-based Semantic File System](https://openreview.net/forum?id=2G021ZqUEZ) — topically coherent files improve NL retrieval accuracy
 - [Building Effective AI Agents – Anthropic](https://www.anthropic.com/research/building-effective-agents) — filesystem-first memory architecture
-- [The GTD Approach to Linking Next Actions and Projects](https://gettingthingsdone.com/2020/06/the-gtd-approach-to-linking-next-actions-and-projects/) — only identify the immediate next action; don't decompose all steps upfront
-- [Projects vs. Next Actions – Ask MetaFilter](https://ask.metafilter.com/217774/Projects-vs-Next-Actions) — badly-scoped items belong in project support (backlog), not the next actions list
-- [LLM Wiki — Andrej Karpathy](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — persistent wiki pattern: immutable sources → LLM-maintained wiki → schema; ingest/query/lint operations; index.md and log.md; why maintenance cost near-zero enables compounding knowledge bases
-- `research-pkm-llm.md` — synthesized research on PKM science, LLM failure modes, and Claude-specific patterns; the primary evidence base for this factory's design decisions
+- [The GTD Approach to Linking Next Actions and Projects](https://gettingthingsdone.com/2020/06/the-gtd-approach-to-linking-next-actions-and-projects/) — only identify immediate next action; don't decompose all steps upfront
+- [Projects vs. Next Actions – Ask MetaFilter](https://ask.metafilter.com/217774/Projects-vs-Next-Actions) — badly-scoped items belong in backlog, not next actions list
+- [LLM Wiki — Andrej Karpathy](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — persistent wiki pattern: immutable sources → LLM-maintained wiki → schema; ingest/query/lint operations; maintenance cost near-zero enables compounding knowledge bases
+- `research-pkm-llm.md` — synthesized research: PKM science, LLM failure modes, Claude-specific patterns; primary evidence base for factory design decisions
