@@ -56,25 +56,13 @@ Create new NLP file system projects on demand. When prompted with project descri
 
 ## Status
 
-Assessment complete. Core design validated; 6 critical issues identified in `assessment.md`. Before v1: remove @desirements.md bloat, add project lifecycle, cold-start protocol, structured completed.md entries, document @-import limitation.
+Active. Core design validated; compliance audit complete across all 20 child projects. Before-v1 fixes implemented. @desirements.md load intentionally retained — factory is a meta-project that should know why it does things.
 
 ## Next Steps
 
 _(empty)_
 
 ## Improvements
-
-**Before v1:**
-
-- **[hi/hi] Remove @desirements.md from main.md** — load on demand only; update Behaviors: "read `desirements.md` when design questions or scaffolding decisions arise." Cuts session overhead from 440+ to ~180 lines. See `assessment.md#1-session-overhead-violates-design`.
-
-- **[hi/hi] Project lifecycle states** — define active/reference/dormant/archived; add retirement protocol to scaffolding; lightweight templates for reference and system doc types. See `assessment.md#2-no-project-lifecycle`.
-
-- **[hi/hi] Cold-start protocol** — add to `_filesys.md`: triggered when last session >7 days per `completed.md`; reads all active files, verifies Index, surfaces re-orientation summary before any work. See `assessment.md#4-no-cold-start-protocol`.
-
-- **[hi/hi] Structured completed.md entries** — retrofit `[LINT]`/`[WORK]`/`[INGEST]` type prefixes on existing entries; enforce going forward. See `assessment.md#3-completedmd-entry-structure`.
-
-- **[hi/hi] Document @-import limitation** — add to `_filesys.md`: @-imports load at session start and do not refresh mid-session. See `assessment.md#5-import-limitation-undocumented`.
 
 **High importance:**
 

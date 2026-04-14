@@ -1,5 +1,10 @@
 # Completed
 
+## [2026-04-14] [LINT] Factory lint
+
+Orphans: none (sources/ clean; archive/ plan files correct). Stale improvements removed: 4 done [hi/hi] before-v1 items + "Before v1" section header. @desirements.md removal improvement dismissed — intentional retention. Status section updated to reflect current state.
+Files touched: `main.md`, `completed.md`.
+
 ## [2026-04-14] [WORK] Compliance audit — all 20 child projects
 
 Full compliance audit executed across all 20 child projects. Disposals: research/, census-data/. New scaffolds: cadoodle, clauding, floof. Reference compliance: audio, discord, ff7, imagemagick, orca. Dormant: proton, pomodoro (moved from resources/pomodoro/). Active compliance: aaacme, ai-teaching, dnd, home_assistant, malcom, omarchy (renamed from updates/), vex_sort, art. Each project received: main.md + CLAUDE.md symlink + _filesys.md + @_filesys.md header, Status declared, Index complete, Behaviors with role + caveman, git initialized.
