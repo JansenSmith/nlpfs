@@ -17,6 +17,8 @@ Create new NLP file system projects on demand. When prompted with a project desc
 - `completed.md` — append-only log of completed work
 - `sources/` — directory of immutable ingested sources, converted to Markdown
 - `sources/karpathy-llm-wiki.md` — Karpathy LLM Wiki pattern (immutable source)
+- `research-pkm-llm.md` — synthesized research: PKM science, LLM failure modes, Claude-specific patterns
+- `assessment.md` — factory assessment: critique, consistency issues, priority fixes
 
 ## Behaviors
 
@@ -45,7 +47,7 @@ See `template.md`.
 
 ## Status
 
-In production. Karpathy integration complete — `desirements.md`, `_filesys.md`, and `template.md` updated with ingest/lint/sources patterns and `@_filesys.md` import. Still needs builder assessment before declaring v1.
+Assessment complete. Core design validated; 6 critical issues identified in `assessment.md`. Before v1: remove @desirements.md bloat, add project lifecycle, cold-start protocol, structured completed.md entries, document @-import limitation.
 
 ## Next Steps
 
@@ -53,12 +55,34 @@ _(empty)_
 
 ## Improvements
 
-- **[hi/hi] Builder assessment** — builder does a full read-through of `desirements.md` and `_filesys.md` and gives a verdict: what's missing, what's wrong, what's ready. Required before factory can be declared v1. Blocks the compliance audit.
+**Before v1:**
 
-- **[hi/lo] Audit existing projects for compliance** — once the scaffold factory and `_filesys.md` are finalized, audit all existing project subfolders and bring them into compliance: rename `CLAUDE.md` → `main.md` + symlink, migrate `todo.md` into `main.md ## Next Steps`, migrate memory folder contents into project files, adopt `## Improvements` backlog structure, apply heading length conventions. Each project is its own task.
+- **[hi/hi] Remove @desirements.md from main.md** — load on demand only; update Behaviors: "read `desirements.md` when design questions or scaffolding decisions arise." Cuts session overhead from 440+ to ~180 lines. See `assessment.md` §Critical Issue 1.
 
-- **[hi/lo] Child project @-imports** — all existing child project main.md files use unreliable "At session start, read `_filesys.md`" instructions; switch each to `@_filesys.md` during compliance audit.
+- **[hi/hi] Project lifecycle states** — define active/reference/dormant/archived; add retirement protocol to scaffolding; add lightweight templates for reference and system doc project types. See `assessment.md` §Critical Issue 2.
 
-- **[lo/lo] Memory folder audit** — audit all existing project memory folders (`~/.claude/projects/*/memory/`); migrate any content to the relevant project files and clear the folders. Blocked on factory v1.
+- **[hi/hi] Cold-start protocol** — add to `_filesys.md`: triggered when last session >7 days per `completed.md`; reads all active files, verifies Index, surfaces re-orientation summary before any work. See `assessment.md` §Critical Issue 4.
 
-- **[lo/lo] Search tooling** — when a project grows large enough that the LLM can't load all files, consider qmd (hybrid BM25 + vector, CLI + MCP) or a DIY script. See `sources/karpathy-llm-wiki.md#optional-cli-tools`.
+- **[hi/hi] Structured completed.md entries** — retrofit `[LINT]`/`[WORK]`/`[INGEST]` type prefixes on existing entries; enforce going forward. See `assessment.md#3-completedmd-entry-structure`.
+
+- **[hi/hi] Document @-import limitation** — add to `_filesys.md`: @-imports load at session start and do not refresh mid-session. See `assessment.md#5-import-limitation-undocumented`.
+
+**High importance:**
+
+- **[hi/lo] Compliance audit** — audit all 20 child projects: rename `CLAUDE.md` → `main.md` + symlink, migrate `todo.md`, adopt `## Improvements`, switch to `@_filesys.md`, address 5 undocumented projects (cadoodle, census-data, clauding, floof, research), flag pomodoro runaway API bug. Each project is its own task. Blocked on factory v1.
+
+- **[hi/lo] Define "vibes" concretely** — What's Next Protocol: "improvement most adjacent to builder's apparent current focus per `completed.md`; or, if no recent focus, shortest unblocked item regardless of domain." See `assessment.md` §Critical Issue 6.
+
+- **[hi/lo] Backlog ceiling** — cap at ~12 items; triage required before adding when full; add creation dates to items for aging. See `assessment.md` §Critical Issues 3, 6.
+
+- **[hi/lo] LLM vs builder content convention** — `>` blockquote for LLM-generated additions during a session; behavioral rule against silently overwriting builder prose. See `assessment.md` §Critical Issue 5.
+
+**Eventually:**
+
+- **[lo/lo] Memory folder audit** — audit `~/.claude/projects/*/memory/`; migrate content to project files and clear folders. Blocked on factory v1.
+
+- **[lo/lo] desirements↔_filesys sync protocol** — checklist or trigger for propagating changes between the two files. See `assessment.md#4-desirementsfilesys-sync-burden`.
+
+- **[lo/lo] Source freshness convention** — when does an immutable source need re-checking? See `assessment.md` §Eventually 11.
+
+- **[lo/lo] Search tooling** — when a project grows beyond loadable size, consider qmd (hybrid BM25 + vector) or a DIY script. See `sources/karpathy-llm-wiki.md#optional-cli-tools`.
