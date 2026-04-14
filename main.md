@@ -14,6 +14,7 @@ Create new NLP file system projects on demand. When prompted with a project desc
 - `_filesys.md` — operational principles template; copied into every new project. Covers ongoing self-maintenance: accumulation, splitting, surfacing, file types, task flow. Does not cover initialization (that is the factory's job).
 - `template.md` — new project main.md template; used by the scaffolding protocol.
 - `archive/plan-karpathy-integration.md` — Karpathy integration plan (completed; archived)
+- `archive/claude-plan-karpathy-integration.md` — Claude Code plan file from the Karpathy integration session (archived)
 - `completed.md` — append-only log of completed work
 - `sources/` — directory of immutable ingested sources, converted to Markdown
 - `sources/karpathy-llm-wiki.md` — Karpathy LLM Wiki pattern (immutable source)
@@ -57,11 +58,11 @@ _(empty)_
 
 **Before v1:**
 
-- **[hi/hi] Remove @desirements.md from main.md** — load on demand only; update Behaviors: "read `desirements.md` when design questions or scaffolding decisions arise." Cuts session overhead from 440+ to ~180 lines. See `assessment.md` §Critical Issue 1.
+- **[hi/hi] Remove @desirements.md from main.md** — load on demand only; update Behaviors: "read `desirements.md` when design questions or scaffolding decisions arise." Cuts session overhead from 440+ to ~180 lines. See `assessment.md#1-session-overhead-violates-design`.
 
-- **[hi/hi] Project lifecycle states** — define active/reference/dormant/archived; add retirement protocol to scaffolding; add lightweight templates for reference and system doc project types. See `assessment.md` §Critical Issue 2.
+- **[hi/hi] Project lifecycle states** — define active/reference/dormant/archived; add retirement protocol to scaffolding; add lightweight templates for reference and system doc project types. See `assessment.md#2-no-project-lifecycle`.
 
-- **[hi/hi] Cold-start protocol** — add to `_filesys.md`: triggered when last session >7 days per `completed.md`; reads all active files, verifies Index, surfaces re-orientation summary before any work. See `assessment.md` §Critical Issue 4.
+- **[hi/hi] Cold-start protocol** — add to `_filesys.md`: triggered when last session >7 days per `completed.md`; reads all active files, verifies Index, surfaces re-orientation summary before any work. See `assessment.md#4-no-cold-start-protocol`.
 
 - **[hi/hi] Structured completed.md entries** — retrofit `[LINT]`/`[WORK]`/`[INGEST]` type prefixes on existing entries; enforce going forward. See `assessment.md#3-completedmd-entry-structure`.
 
@@ -71,11 +72,11 @@ _(empty)_
 
 - **[hi/lo] Compliance audit** — audit all 20 child projects: rename `CLAUDE.md` → `main.md` + symlink, migrate `todo.md`, adopt `## Improvements`, switch to `@_filesys.md`, address 5 undocumented projects (cadoodle, census-data, clauding, floof, research), flag pomodoro runaway API bug. Each project is its own task. Blocked on factory v1.
 
-- **[hi/lo] Define "vibes" concretely** — What's Next Protocol: "improvement most adjacent to builder's apparent current focus per `completed.md`; or, if no recent focus, shortest unblocked item regardless of domain." See `assessment.md` §Critical Issue 6.
+- **[hi/lo] Define "vibes" concretely** — What's Next Protocol: "improvement most adjacent to builder's apparent current focus per `completed.md`; or, if no recent focus, shortest unblocked item regardless of domain." See `assessment.md#6-vibes-not-a-protocol`.
 
-- **[hi/lo] Backlog ceiling** — cap at ~12 items; triage required before adding when full; add creation dates to items for aging. See `assessment.md` §Critical Issues 3, 6.
+- **[hi/lo] Backlog ceiling** — cap at ~12 items; triage required before adding when full; add creation dates to items for aging. See `assessment.md#3-no-backlog-decay`, `assessment.md#6-vibes-not-a-protocol`.
 
-- **[hi/lo] LLM vs builder content convention** — `>` blockquote for LLM-generated additions during a session; behavioral rule against silently overwriting builder prose. See `assessment.md` §Critical Issue 5.
+- **[hi/lo] LLM vs builder content convention** — `>` blockquote for LLM-generated additions during a session; behavioral rule against silently overwriting builder prose. See `assessment.md#5-context-poisoning-unaddressed`.
 
 **Eventually:**
 

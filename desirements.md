@@ -164,6 +164,8 @@ Keep section headings to **3–5 words** (after any tag prefix). Detail goes in 
 - Good: `## [hi/hi] Oil finish rags`
 - Avoid: `## [hi/hi] Acquire new rags for use during oil finish application`
 
+**Use headings, not bold text, for any content another file might reference.** Bold text has no anchor. A heading auto-generates one: lowercase, spaces → hyphens, special characters stripped. `### My Section` → `#my-section`. If you need to link to something, make it a heading first.
+
 ### Cross-References
 
 Reference specific sections using `file.md#anchor` syntax:

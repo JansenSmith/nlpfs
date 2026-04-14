@@ -27,7 +27,7 @@ But it has structural flaws that will cause abandonment at exactly the moments i
 
 ## Critical Issues
 
-### 1. @desirements.md loaded every session — violates its own design
+### 1. Session overhead violates design
 
 The factory loads `@_filesys.md` (180 lines) + `@desirements.md` (260 lines) = 440+ lines of system overhead at every session start. Research confirms: instructions buried past ~100 lines are progressively deprioritized. The factory's own context discipline rule ("curated ruthlessly, under ~200 lines") is being violated by the factory itself.
 
@@ -37,7 +37,7 @@ The factory loads `@_filesys.md` (180 lines) + `@desirements.md` (260 lines) = 4
 
 ---
 
-### 2. No project lifecycle — the factory only creates, never retires
+### 2. No project lifecycle
 
 The scaffolding protocol creates projects. There is no protocol for what happens when a project is done, stalled, or reclassified.
 
@@ -60,7 +60,7 @@ The factory applies the same template to everything, adding maintenance overhead
 
 ---
 
-### 3. No decay mechanism — files grow without bound
+### 3. No backlog decay
 
 Research: 67% of notes are never revisited. Systems that grow without decay create re-entry dread and get abandoned. The factory has no concept of information aging.
 
@@ -84,7 +84,7 @@ Research: re-entry cost must be near-zero; "what's next?" must be answerable in 
 
 ---
 
-### 5. Context poisoning — unaddressed
+### 5. Context poisoning unaddressed
 
 Research identifies LLM self-editing as the most dangerous failure mode for persistent assistants. The factory depends on the LLM editing project files. An incorrect belief written to a file gets read back into every subsequent session and reinforced. The model becomes confident about false state.
 
@@ -96,7 +96,7 @@ There is no convention for distinguishing builder-written content from LLM-writt
 
 ---
 
-### 6. "Vibes" is not a protocol
+### 6. Vibes not a protocol
 
 The most important decision in the system — what to work on next — is the least specified. "60% vibes, 40% priority" is a spirit rule, not a protocol. "Vibes" is undefined.
 

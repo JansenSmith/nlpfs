@@ -124,6 +124,8 @@ finish    →  completed.md
 - Good: `## [hi/hi] Oil finish rags`
 - Avoid: `## [hi/hi] Acquire new rags for use during oil finish application`
 
+**Use headings, not bold text, for any content another file might reference.** Bold text has no anchor. A heading auto-generates one: lowercase, spaces → hyphens, special characters stripped. `### My Section` → `#my-section`. If you need to link to something, make it a heading first.
+
 **Cross-references should be bidirectional where meaningful.** When writing a reference from file A to file B, immediately check whether a back-reference belongs in file B.
 
 **Cross-reference** with `file.md#anchor` syntax:
