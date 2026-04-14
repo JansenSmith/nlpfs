@@ -1,5 +1,10 @@
 # Completed
 
+## [2026-04-14] [WORK] Pre-audit factory cleanup
+
+Archive policy established: synthesize-before-archive rule, archive/ unindexed and untracked. Gitignore scaffolding step added to scaffolding protocol (blanket `*/` + `!sources/`; assess domain subdirs). Karpathy search tooling rationale expanded in [lo/lo] improvement. _filesys.md session notes clarified.
+Files touched: `main.md`, `_filesys.md`, `desirements.md`.
+
 ## [2026-04-14] [WORK] Before-v1 fixes and caveman refactor
 
 Implemented all before-v1 fixes except removing @desirements.md (deferred for assessment). Git protocol added to scaffolding and _filesys.md. Cold-start protocol added. @-import limitation documented. Project lifecycle states + retirement/upgrade protocols added. Structured completed.md entries with type prefixes. Desirements alignment pass (startup claim, cross-refs, summary items 16-18). Caveman compression on all propagating files (_filesys.md, desirements.md, main.md, templates). Assessment.md internal consistency headings converted to proper ### headings; cross-references updated to file.md#anchor syntax throughout.
