@@ -210,7 +210,7 @@ Split to `behaviors.md` using same split-when-coherent rule.
 ## Session Notes
 
 - Written to `session-YYYY-MM-DD.md` in project root.
-- After integration into permanent files, move to `archive/`.
+- After integration into permanent files, move to `archive/`. `archive/` is a vessel graveyard — synthesis must be complete before archiving. Not a deferral mechanism.
 - Not read unless explicitly requested.
 
 ---

@@ -283,8 +283,9 @@ Memory folder = fallback; should not be used. Corrections, vocabulary, conventio
 5. Copy appropriate template to `<name>/main.md` — `template.md` for active, `template-reference.md` for reference. Fill in name, goal, role.
 6. Run `ln -s main.md <name>/CLAUDE.md`.
 7. Copy `_filesys.md` into `<name>/_filesys.md`. Factory-managed; child LLMs must not edit.
-8. Run `git init <name>/`. Stage scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`), propose `"init commit"`, wait for explicit approval. Uses local git identity.
-9. Create additional files only if immediate content exists. No stubs.
+8. Create `<name>/.gitignore`: default ignores all subdirectories (`*/`) except `sources/` (`!sources/`, `!sources/**`). Assess two things: (a) any existing subdirectories with content worth tracking; (b) whether the project's domain naturally calls for subdirectories (e.g. characters/, models/, assets/) — discuss with builder and add `!<dir>/` + `!<dir>/**` exceptions for any agreed dirs.
+9. Run `git init <name>/`. Stage scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`, `.gitignore`), propose `"init commit"`, wait for explicit approval. Uses local git identity.
+10. Create additional files only if immediate content exists. No stubs.
 
 Both templates include caveman mode on by default. Remove the behavior line to disable per project.
 

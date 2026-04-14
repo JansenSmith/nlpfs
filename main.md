@@ -14,8 +14,7 @@ Create new NLP file system projects on demand. When prompted with project descri
 - `_filesys.md` — operational principles template; copied into every new project. Covers self-maintenance: accumulation, splitting, surfacing, file types, task flow. Not initialization (factory's job).
 - `template.md` — new active project main.md template
 - `template-reference.md` — new reference project main.md template
-- `archive/plan-karpathy-integration.md` — Karpathy integration plan (completed; archived)
-- `archive/claude-plan-karpathy-integration.md` — Claude Code plan file from Karpathy integration session (archived)
+- `archive/` — retired session artifacts and plan vessels; synthesis complete before archiving; human-readable record only; not indexed, not linted
 - `completed.md` — append-only log of completed work
 - `sources/` — immutable ingested sources, converted to Markdown
 - `sources/karpathy-llm-wiki.md` — Karpathy LLM Wiki pattern (immutable source)
@@ -31,6 +30,8 @@ Create new NLP file system projects on demand. When prompted with project descri
 - Design changes: capture/discuss in main.md → expand with rationale in `desirements.md` → distill operational impact into `_filesys.md`.
 - `_filesys.md` in child projects is factory-managed. Child LLMs must not edit it. Updates pushed deliberately from this factory.
 - Always show builder proposed commit message and wait for explicit approval before `git commit`. Same for `git push`.
+- Archive is synthesis-complete. Nothing moves to `archive/` until all value has been distributed to project files. `archive/` contents are not LLM-accessible and will not be surfaced.
+- `archive/` contents are intentionally unindexed — do not flag as orphans during lint.
 
 ### Scaffolding Protocol
 
@@ -41,8 +42,9 @@ Create new NLP file system projects on demand. When prompted with project descri
 5. Copy appropriate template to `<name>/main.md` — `template.md` for active, `template-reference.md` for reference. Fill in name, goal, role.
 6. Run `ln -s main.md <name>/CLAUDE.md`.
 7. Copy `_filesys.md` into `<name>/_filesys.md`.
-8. Run `git init <name>/`. Stage scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`), propose `"init commit"`, wait for explicit approval. Uses local git identity.
-9. Create additional files only if immediate content exists. No stubs.
+8. Create `<name>/.gitignore`: default ignores all subdirectories (`*/`) except `sources/` (`!sources/`, `!sources/**`). Assess two things: (a) any existing subdirectories with content worth tracking; (b) whether the project's domain naturally calls for subdirectories (e.g. characters/, models/, assets/) — discuss with builder and add `!<dir>/` + `!<dir>/**` exceptions for any agreed dirs.
+9. Run `git init <name>/`. Stage scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`, `.gitignore`), propose `"init commit"`, wait for explicit approval. Uses local git identity.
+10. Create additional files only if immediate content exists. No stubs.
 
 ### Upgrading Existing Projects
 
@@ -92,4 +94,4 @@ _(empty)_
 
 - **[lo/lo] Source freshness convention** — when does immutable source need re-checking? See `assessment.md#eventually`.
 
-- **[lo/lo] Search tooling** — project grows beyond loadable size → consider qmd (BM25 + vector) or DIY script. See `sources/karpathy-llm-wiki.md#optional-cli-tools`.
+- **[lo/lo] Search tooling** — scale-triggered: needed when project grows beyond what fits in context window. Recommended tools: qmd (hybrid BM25 + vector, CLI + MCP server) or DIY search script. See `sources/karpathy-llm-wiki.md#optional-cli-tools`.
