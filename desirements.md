@@ -253,7 +253,7 @@ The project then builds itself out through the accumulation cycle.
 
 1. **Filesystem is the memory.** All durable state lives in `.md` files — including learned behaviors.
 2. **Single entry point.** `main.md` is the actual project brain. `CLAUDE.md` is a symlink for Claude Code compatibility.
-3. **Session startup ritual.** Startup files are injected via `@filename` harness expansion — not behavioral reads. The LLM sees them because the harness loads them at session start, not because it decided to read them.
+3. **Session startup ritual.** Startup files are injected via `@filename` harness expansion — not behavioral reads. The LLM sees them because the harness loads them at session start, not because it decided to read them. @-imports do not refresh mid-session — edits to an imported file take effect only at the next session start.
 4. **Active list is small.** 3–7 WIP-limited next actions in `main.md ## Next Steps`. Never a separate file. New items always captured to improvements, not lost.
 5. **Backlog is tagged.** Improvements section or file holds deferred work with hi/lo importance × urgency tags. Items pull into Next Steps when space opens.
 6. **Start monolithic, split when coherent.** New content goes into `main.md` first. Extract when a section can stand alone, or when another file needs to cite it.

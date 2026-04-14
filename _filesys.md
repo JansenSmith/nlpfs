@@ -4,6 +4,8 @@ This file guides ongoing project self-maintenance: accumulation, splitting, surf
 
 **This file is factory-managed. Do not edit it within a project.** Changes flow from the scaffold factory and are pushed downstream deliberately.
 
+**@-import limitation:** this file (and any other `@`-imported file) is loaded by the harness at session start and does not refresh mid-session. If it is edited during a session, the LLM still sees the version from session start until the next session begins. Do not edit an `@`-imported file and expect the change to take effect immediately.
+
 ---
 
 ## Glossary
