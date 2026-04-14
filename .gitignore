@@ -1,0 +1,6 @@
+# Ignore all subdirectories
+*/
+
+# Except sources/
+!sources/
+!sources/**
