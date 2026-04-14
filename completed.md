@@ -1,5 +1,10 @@
 # Completed
 
+## [2026-04-14] [WORK] Compliance audit — all 20 child projects
+
+Full compliance audit executed across all 20 child projects. Disposals: research/, census-data/. New scaffolds: cadoodle, clauding, floof. Reference compliance: audio, discord, ff7, imagemagick, orca. Dormant: proton, pomodoro (moved from resources/pomodoro/). Active compliance: aaacme, ai-teaching, dnd, home_assistant, malcom, omarchy (renamed from updates/), vex_sort, art. Each project received: main.md + CLAUDE.md symlink + _filesys.md + @_filesys.md header, Status declared, Index complete, Behaviors with role + caveman, git initialized.
+Files touched: all 20 child project directories.
+
 ## [2026-04-14] [WORK] Pre-audit factory cleanup
 
 Archive policy established: synthesize-before-archive rule, archive/ unindexed and untracked. Gitignore scaffolding step added to scaffolding protocol (blanket `*/` + `!sources/`; assess domain subdirs). Karpathy search tooling rationale expanded in [lo/lo] improvement. _filesys.md session notes clarified.

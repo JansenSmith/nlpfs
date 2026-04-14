@@ -78,8 +78,6 @@ _(empty)_
 
 **High importance:**
 
-- **[hi/lo] Compliance audit** — audit all 20 child projects: rename `CLAUDE.md` → `main.md` + symlink, migrate `todo.md`, adopt `## Improvements`, switch to `@_filesys.md`, address 5 undocumented projects (cadoodle, census-data, clauding, floof, research), flag pomodoro runaway API bug. Each project own task. Blocked on factory v1.
-
 - **[hi/lo] Define "vibes" concretely** — What's Next Protocol: "improvement most adjacent to builder's apparent current focus per `completed.md`; or, if no recent focus, shortest unblocked item regardless of domain." See `assessment.md#6-vibes-not-a-protocol`.
 
 - **[hi/lo] Backlog ceiling** — cap at ~12 items; triage required before adding when full; add creation dates for aging. See `assessment.md#3-no-backlog-decay`, `assessment.md#6-vibes-not-a-protocol`.
