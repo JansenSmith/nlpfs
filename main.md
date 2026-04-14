@@ -19,6 +19,7 @@ Create new NLP file system projects on demand. When prompted with a project desc
 - `completed.md` — append-only log of completed work
 - `sources/` — directory of immutable ingested sources, converted to Markdown
 - `sources/karpathy-llm-wiki.md` — Karpathy LLM Wiki pattern (immutable source)
+- `sources/caveman.md` — Caveman terse-output skill: always-on snippet, install, benchmarks, skills (immutable source)
 - `research-pkm-llm.md` — synthesized research: PKM science, LLM failure modes, Claude-specific patterns
 - `assessment.md` — factory assessment: critique, consistency issues, priority fixes
 
