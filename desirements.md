@@ -214,6 +214,7 @@ Common behavior types:
 - **Ingest log** — every ingest appended to `completed.md` with source name, path, all files touched
 - **Lint trigger** — session start: check last entry date in `completed.md`; >7 days → Cold-Start Protocol; otherwise lint if last lint >36h. Also at prep-for-exit, heavy sessions, major accumulation.
 - **Cross-reference** — writing ref to another file → immediately check if back-ref belongs in target
+- **Git commits** — task complete → propose commit message + file list; wait for explicit approval before committing or pushing
 
 ---
 
@@ -285,6 +286,8 @@ Memory folder = fallback; should not be used. Corrections, vocabulary, conventio
 8. Run `git init <name>/`. Stage scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`), propose `"init commit"`, wait for explicit approval. Uses local git identity.
 9. Create additional files only if immediate content exists. No stubs.
 
+Both templates include caveman mode on by default. Remove the behavior line to disable per project.
+
 ### Upgrading Existing Projects
 
 `_filesys.md` updated → push to child projects deliberately:
@@ -314,6 +317,9 @@ Factory does not auto-push. Upgrades deliberate, one project at a time.
 13. **Ingest is an operation.** Source enters project → convert to Markdown, save to `sources/`, synthesize across all relevant files, log in `completed.md`.
 14. **File back.** Valuable query syntheses in project files, not chat. Explorations compound.
 15. **Lint periodically.** Orphans, stale refs, contradictions at session start (if >36h since last), at prep-for-exit, after heavy sessions or major accumulation.
+16. **Projects have lifecycle states.** active/reference/dormant/archived. Declared in `## Status`. State determines apparatus. Factory has retirement and upgrade protocols.
+17. **Version-controlled from init.** Git init on scaffold. Each task completion → proposed commit + file list; explicit approval required. Never commit or push without approval.
+18. **Terse by default.** Caveman mode in all new projects (~65% output token reduction). Per-project configurable — remove behavior line to disable.
 
 ---
 
