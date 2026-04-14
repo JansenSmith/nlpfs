@@ -234,6 +234,31 @@ Do not create a file until there is content to put in it.
 
 ---
 
+## Project Lifecycle
+
+Every project has a state. The state determines which apparatus is active and what maintenance the LLM performs.
+
+| State | Description | Apparatus |
+|---|---|---|
+| **active** | Being worked on; has open next actions or improvements | Full: Next Steps, Improvements, Behaviors, lint, cold-start |
+| **reference** | Lookup/how-to content; not a tracked project | Index + content only; no task machinery |
+| **dormant** | Was active; stalled on something external; not abandoned | Status declares blocker; Improvements preserved; lint still runs |
+| **archived** | Closed, done, or abandoned; read-only | Status declares archived; no further maintenance |
+
+Declared in `## Status` in `main.md`.
+
+### Retirement Protocol
+
+**Active → dormant**: When all Next Steps are blocked and no unblocked work exists, ask the builder to confirm dormancy. Update Status: `Dormant. Waiting for: [X].` Empty Next Steps. Keep Improvements.
+
+**Active → reference**: When a project is revealed to be reference material (no tasks, just content). Strip Next Steps and Improvements. Update Status: `Reference. No task tracking.` Restructure main.md around content sections if needed.
+
+**Active/dormant → archived**: When the project is finished or explicitly abandoned. Update Status: `Archived [date]. [Reason].` No further lint or cold-start.
+
+**Reference/dormant → active**: When work resumes or tasks emerge. Update Status accordingly. Restore apparatus if removed.
+
+---
+
 ## Persistence Layers
 
 | Layer | Location | What belongs here |
@@ -253,14 +278,25 @@ When told "I want a [type] project":
 
 1. Ask for the project name.
 2. Ask how to refer to the person, if not obvious from context.
-3. Create `<name>/` directory.
-4. Copy `template.md` to `<name>/main.md`. Fill in the project name, goal, and role. Note: `template.md` opens with `@_filesys.md` — this guarantees `_filesys.md` is in context via harness injection, replacing the unreliable "At session start, read" behavioral instruction.
-5. Run `ln -s main.md <name>/CLAUDE.md` (backwards compatibility with Claude Code auto-load).
-6. Copy `_filesys.md` into `<name>/_filesys.md`. This file is the project's ongoing self-maintenance guide — accumulation, splitting, surfacing, file types, task flow. It does not cover initialization; that is the factory's job. Note: `_filesys.md` duplicates the glossary and some content from `desirements.md` by design — it is a distribution artifact that must be self-contained, not a project file subject to the non-duplication principle. It is factory-managed: the LLM operating within a child project must not edit it. Updates are pushed deliberately from the factory.
-7. Run `git init <name>/`. Stage the scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`), propose the commit message `"init commit"`, and wait for explicit approval before committing. Uses local git identity — no per-repo setup needed.
-8. Create additional files only if there is immediate content for them. No stubs.
+3. Ask the project type if not obvious: **active** (tracked work) or **reference** (lookup content). Default to active if unclear.
+4. Create `<name>/` directory.
+5. Copy the appropriate template to `<name>/main.md` — `template.md` for active, `template-reference.md` for reference. Fill in the project name, goal, and role.
+6. Run `ln -s main.md <name>/CLAUDE.md` (backwards compatibility with Claude Code auto-load).
+7. Copy `_filesys.md` into `<name>/_filesys.md`. Factory-managed; child LLMs must not edit it.
+8. Run `git init <name>/`. Stage the scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`), propose the commit message `"init commit"`, and wait for explicit approval before committing. Uses local git identity — no per-repo setup needed.
+9. Create additional files only if there is immediate content for them. No stubs.
 
 The project then builds itself out through the accumulation cycle.
+
+### Upgrading Existing Projects
+
+When `_filesys.md` is updated in the factory, push it to child projects deliberately:
+
+1. Copy the updated `_filesys.md` to each active and dormant child project: `cp _filesys.md <name>/_filesys.md`.
+2. Commit in each child repo: propose `"upgraded _filesys.md"` and wait for approval.
+3. Reference projects may also receive the upgrade — apply judgement; they benefit from convention updates but not task-flow changes.
+
+The factory does not auto-push. Upgrades are deliberate, one project at a time.
 
 ---
 

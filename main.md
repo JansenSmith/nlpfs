@@ -12,7 +12,8 @@ Create new NLP file system projects on demand. When prompted with a project desc
 - `CLAUDE.md` — symlink to main.md (backwards compatibility with Claude Code auto-load)
 - `desirements.md` — design documentation and source of truth for NLP file system principles
 - `_filesys.md` — operational principles template; copied into every new project. Covers ongoing self-maintenance: accumulation, splitting, surfacing, file types, task flow. Does not cover initialization (that is the factory's job).
-- `template.md` — new project main.md template; used by the scaffolding protocol.
+- `template.md` — new active project main.md template; used by the scaffolding protocol.
+- `template-reference.md` — new reference project main.md template; used by the scaffolding protocol.
 - `archive/plan-karpathy-integration.md` — Karpathy integration plan (completed; archived)
 - `archive/claude-plan-karpathy-integration.md` — Claude Code plan file from the Karpathy integration session (archived)
 - `completed.md` — append-only log of completed work
@@ -36,16 +37,21 @@ When asked to create a new project:
 
 1. Ask for the project name if not given.
 2. Ask how to refer to the person in this project if not obvious from context.
-3. Create `<name>/` directory.
-4. Copy `template.md` to `<name>/main.md`. Fill in the project name, goal, and role.
-5. Run `ln -s main.md <name>/CLAUDE.md` to create the symlink (backwards compatibility with Claude Code auto-load).
-6. Copy `_filesys.md` into `<name>/_filesys.md`.
-7. Run `git init <name>/`. Stage the scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`), propose the commit message `"init commit"`, and wait for explicit approval before committing. Uses local git identity — no per-repo setup needed.
-8. Create additional files only if there is immediate content for them. No stubs.
+3. Ask the project type if not obvious: **active** (tracked work) or **reference** (lookup content). Default to active if unclear.
+4. Create `<name>/` directory.
+5. Copy the appropriate template to `<name>/main.md` — `template.md` for active, `template-reference.md` for reference. Fill in the project name, goal, and role.
+6. Run `ln -s main.md <name>/CLAUDE.md` to create the symlink (backwards compatibility with Claude Code auto-load).
+7. Copy `_filesys.md` into `<name>/_filesys.md`.
+8. Run `git init <name>/`. Stage the scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`), propose the commit message `"init commit"`, and wait for explicit approval before committing. Uses local git identity — no per-repo setup needed.
+9. Create additional files only if there is immediate content for them. No stubs.
+
+### Upgrading Existing Projects
+
+When `_filesys.md` is updated, push to child projects: `cp _filesys.md <name>/_filesys.md`, then propose `"upgraded _filesys.md"` per project and wait for approval before committing. Active and dormant projects always get upgrades; reference projects at judgement.
 
 ### New Project main.md Template
 
-See `template.md`.
+See `template.md`. Reference projects use `template-reference.md`.
 
 ## Status
 
