@@ -134,3 +134,4 @@ Lally et al.: 18–254 days depending on complexity. **Systems requiring daily e
 - [Claude Code Context Window Guide — Morph](https://www.morphllm.com/claude-code-context-window)
 - [CLAUDE.md Best Practices — DEV Community](https://dev.to/cleverhoods/claudemd-best-practices-from-basic-to-adaptive-9lm)
 - [Claude Code Best Practices — Anthropic](https://code.claude.com/docs/en/best-practices)
+- `sources/karpathy-llm-wiki.md` — Karpathy's persistent wiki pattern; ingest/query/lint operations, compounding knowledge base design

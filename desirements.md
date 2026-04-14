@@ -252,12 +252,12 @@ The project then builds itself out through the accumulation cycle.
 
 1. **Filesystem is the memory.** All durable state lives in `.md` files — including learned behaviors.
 2. **Single entry point.** `main.md` is the actual project brain. `CLAUDE.md` is a symlink for Claude Code compatibility.
-3. **Session startup ritual.** The LLM reads declared startup files without being asked.
+3. **Session startup ritual.** Startup files are injected via `@filename` harness expansion — not behavioral reads. The LLM sees them because the harness loads them at session start, not because it decided to read them.
 4. **Active list is small.** 3–7 WIP-limited next actions in `main.md ## Next Steps`. Never a separate file. New items always captured to improvements, not lost.
 5. **Backlog is tagged.** Improvements section or file holds deferred work with hi/lo importance × urgency tags. Items pull into Next Steps when space opens.
 6. **Start monolithic, split when coherent.** New content goes into `main.md` first. Extract when a section can stand alone, or when another file needs to cite it.
 7. **Know the file type.** Use the taxonomy to name and structure new files correctly.
-8. **Short headings, precise references.** 3–5 word section headings. Cross-reference with `file.md#anchor` syntax.
+8. **Short headings, precise references.** 3–5 word section headings. Cross-reference with `file.md#anchor` syntax. Use headings, not bold text, for referenceable content — only headings generate anchors.
 9. **Reference over duplication.** Files point to each other; no content repeated.
 10. **Role clarity.** Each project names who the human is. Ask if unspecified.
 11. **Self-maintaining.** `main.md` is updated at natural milestones. The project documents itself.
@@ -284,3 +284,4 @@ The project then builds itself out through the accumulation cycle.
 - [The GTD Approach to Linking Next Actions and Projects](https://gettingthingsdone.com/2020/06/the-gtd-approach-to-linking-next-actions-and-projects/) — only identify the immediate next action; don't decompose all steps upfront
 - [Projects vs. Next Actions – Ask MetaFilter](https://ask.metafilter.com/217774/Projects-vs-Next-Actions) — badly-scoped items belong in project support (backlog), not the next actions list
 - [LLM Wiki — Andrej Karpathy](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — persistent wiki pattern: immutable sources → LLM-maintained wiki → schema; ingest/query/lint operations; index.md and log.md; why maintenance cost near-zero enables compounding knowledge bases
+- `research-pkm-llm.md` — synthesized research on PKM science, LLM failure modes, and Claude-specific patterns; the primary evidence base for this factory's design decisions
