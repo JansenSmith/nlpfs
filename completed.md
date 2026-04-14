@@ -1,5 +1,10 @@
 # Completed
 
+## [2026-04-14] [WORK] Before-v1 fixes and caveman refactor
+
+Implemented all before-v1 fixes except removing @desirements.md (deferred for assessment). Git protocol added to scaffolding and _filesys.md. Cold-start protocol added. @-import limitation documented. Project lifecycle states + retirement/upgrade protocols added. Structured completed.md entries with type prefixes. Desirements alignment pass (startup claim, cross-refs, summary items 16-18). Caveman compression on all propagating files (_filesys.md, desirements.md, main.md, templates). Assessment.md internal consistency headings converted to proper ### headings; cross-references updated to file.md#anchor syntax throughout.
+Files touched: `main.md`, `desirements.md`, `_filesys.md`, `template.md`, `template-reference.md`, `assessment.md`, `completed.md`.
+
 ## [2026-04-14] [INGEST] Caveman integration
 
 Ingested JuliusBrussee/caveman README. Caveman cuts ~65% output tokens via terse behavioral rules; March 2026 paper confirms brief responses improve accuracy. Always-on snippet added to `template.md` and `template-reference.md` as default configurable behavior. Source saved as `sources/caveman.md`.
