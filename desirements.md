@@ -242,7 +242,8 @@ When told "I want a [type] project":
 4. Copy `template.md` to `<name>/main.md`. Fill in the project name, goal, and role. Note: `template.md` opens with `@_filesys.md` — this guarantees `_filesys.md` is in context via harness injection, replacing the unreliable "At session start, read" behavioral instruction.
 5. Run `ln -s main.md <name>/CLAUDE.md` (backwards compatibility with Claude Code auto-load).
 6. Copy `_filesys.md` into `<name>/_filesys.md`. This file is the project's ongoing self-maintenance guide — accumulation, splitting, surfacing, file types, task flow. It does not cover initialization; that is the factory's job. Note: `_filesys.md` duplicates the glossary and some content from `desirements.md` by design — it is a distribution artifact that must be self-contained, not a project file subject to the non-duplication principle. It is factory-managed: the LLM operating within a child project must not edit it. Updates are pushed deliberately from the factory.
-7. Create additional files only if there is immediate content for them. No stubs.
+7. Run `git init <name>/`. Stage the scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`), propose the commit message `"init commit"`, and wait for explicit approval before committing. Uses local git identity — no per-repo setup needed.
+8. Create additional files only if there is immediate content for them. No stubs.
 
 The project then builds itself out through the accumulation cycle.
 

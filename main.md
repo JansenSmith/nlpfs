@@ -40,7 +40,8 @@ When asked to create a new project:
 4. Copy `template.md` to `<name>/main.md`. Fill in the project name, goal, and role.
 5. Run `ln -s main.md <name>/CLAUDE.md` to create the symlink (backwards compatibility with Claude Code auto-load).
 6. Copy `_filesys.md` into `<name>/_filesys.md`.
-7. Create additional files only if there is immediate content for them. No stubs.
+7. Run `git init <name>/`. Stage the scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`), propose the commit message `"init commit"`, and wait for explicit approval before committing. Uses local git identity — no per-repo setup needed.
+8. Create additional files only if there is immediate content for them. No stubs.
 
 ### New Project main.md Template
 

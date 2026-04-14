@@ -185,6 +185,7 @@ Universal behaviors (apply to every project via this file):
 - When asked what to do next, run the "What's Next?" Protocol.
 - After any change to Next Steps, show the current queue and ask if anything strikes them or if they'd like a suggestion.
 - When the person signals something is needed or missing, infer a blockage and ask about capturing it as an improvement or dependency before moving on.
+- When a Next Steps item is completed, propose a git commit message and wait for explicit approval before committing.
 
 Split to `behaviors.md` using the same split-when-coherent rule.
 
@@ -201,6 +202,20 @@ Split to `behaviors.md` using the same split-when-coherent rule.
 ## Prep for Exit
 
 When wrapping up a session, audit everything touched and ensure each piece is saved — either accumulated into permanent project files or captured in a session notes file. Nothing touched in the session should exist only in chat history. Also run lint — check for orphaned files, stale references, and contradictions introduced this session.
+
+---
+
+## Git
+
+Projects are version-controlled from initialization. Each completed task gets a commit.
+
+**Commit on task completion.** When a Next Steps item is moved to `completed.md`, propose a commit message covering the work done. Show the proposed message and the list of files to be staged. Wait for explicit approval before running `git commit`. Never commit without approval. Same rule applies to `git push`.
+
+**Commit style:** short, lowercase, past tense, no trailing period. Standard initial commit message is `"init commit"`. Single line unless the work genuinely warrants a body.
+- Good: `added entry to pieces.md`
+- Avoid: `Added entry to pieces.md.`
+
+**Never use** `--no-verify`, `--force`, or amend published commits unless explicitly asked.
 
 ---
 
