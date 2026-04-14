@@ -144,7 +144,7 @@ The builder manages a genuinely diverse portfolio: filament painting art, D&D ca
 
 ## Priority Fixes
 
-**Before factory v1:**
+### Before v1
 
 1. Remove `@desirements.md` from `main.md` — load on demand only; update Behaviors accordingly
 2. Define project lifecycle states; add retirement protocol to scaffolding
@@ -152,14 +152,14 @@ The builder manages a genuinely diverse portfolio: filament painting art, D&D ca
 4. Structure completed.md entries with type prefixes (`[LINT]`, `[WORK]`, `[INGEST]`) for reliable parsing
 5. Document @-import limitation in `_filesys.md`
 
-**High importance, not urgent:**
+### High Importance
 
 6. Add backlog ceiling (~12 items) with triage trigger
 7. Define "vibes" concretely in What's Next Protocol
 8. Add lightweight templates for reference and system doc project types
 9. Establish convention for LLM-written vs builder-written content
 
-**Eventually:**
+### Eventually
 
 10. Backlog aging mechanism (creation date on improvement items)
 11. Source freshness convention (when does an immutable source need re-checking?)

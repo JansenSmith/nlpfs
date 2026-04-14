@@ -90,6 +90,6 @@ _(empty)_
 
 - **[lo/lo] desirements↔_filesys sync protocol** — checklist or trigger for propagating changes between files. See `assessment.md#4-desirementsfilesys-sync-burden`.
 
-- **[lo/lo] Source freshness convention** — when does immutable source need re-checking? See `assessment.md` §Eventually 11.
+- **[lo/lo] Source freshness convention** — when does immutable source need re-checking? See `assessment.md#eventually`.
 
 - **[lo/lo] Search tooling** — project grows beyond loadable size → consider qmd (BM25 + vector) or DIY script. See `sources/karpathy-llm-wiki.md#optional-cli-tools`.
