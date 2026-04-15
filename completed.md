@@ -1,5 +1,10 @@
 # Completed
 
+## [2026-04-15] [WORK] Per-child claudeMdExcludes settings
+
+Created `.claude/settings.json` in all 19 child projects excluding `projects/CLAUDE.md` from loading as a parent. Prevents factory context from bleeding into child sessions. No ancestor-specific mechanism exists in Claude Code — blanket per-child exclusion is the only option. Scaffolding protocol updated to create this file for new projects automatically.
+Files touched: `main.md`, `completed.md`; 19 × `<project>/.claude/settings.json` (machine-local, gitignored).
+
 ## [2026-04-14] [LINT] Factory lint
 
 Orphans: none (sources/ clean; archive/ plan files correct). Stale improvements removed: 4 done [hi/hi] before-v1 items + "Before v1" section header. @desirements.md removal improvement dismissed — intentional retention. Status section updated to reflect current state.

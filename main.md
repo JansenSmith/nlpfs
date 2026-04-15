@@ -43,8 +43,17 @@ Create new NLP file system projects on demand. When prompted with project descri
 6. Run `ln -s main.md <name>/CLAUDE.md`.
 7. Copy `_filesys.md` into `<name>/_filesys.md`.
 8. Create `<name>/.gitignore`: default ignores all subdirectories (`*/`) except `sources/` (`!sources/`, `!sources/**`). Assess two things: (a) any existing subdirectories with content worth tracking; (b) whether the project's domain naturally calls for subdirectories (e.g. characters/, models/, assets/) — discuss with builder and add `!<dir>/` + `!<dir>/**` exceptions for any agreed dirs.
-9. Run `git init <name>/`. Stage scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`, `.gitignore`), propose `"init commit"`, wait for explicit approval. Uses local git identity.
-10. Create additional files only if immediate content exists. No stubs.
+9. Create `<name>/.claude/settings.json` with parent exclusion:
+   ```json
+   {
+     "claudeMdExcludes": [
+       "/home/jansen/Documents/projects/CLAUDE.md"
+     ]
+   }
+   ```
+   This prevents the factory CLAUDE.md from loading in child sessions. Machine-local; gitignored by `*/`.
+10. Run `git init <name>/`. Stage scaffolded files (`main.md`, `_filesys.md`, `CLAUDE.md`, `.gitignore`), propose `"init commit"`, wait for explicit approval. Uses local git identity.
+11. Create additional files only if immediate content exists. No stubs.
 
 ### Upgrading Existing Projects
 
