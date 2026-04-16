@@ -1,5 +1,14 @@
 # Completed
 
+## [2026-04-16] [WORK] Filesys versioning + distribution
+
+Added `**Filesys version:**` line to `_filesys.md` (short factory commit hash). Documented two-step version stamp process and child commit format in `desirements.md` upgrading section. Distributed to all 21 child projects.
+Files touched: `_filesys.md`, `desirements.md`, all 21 × `<project>/_filesys.md`.
+
+## [2026-04-16] [LINT] Session lint
+
+Orphans: none. Stale: `main.md#upgrading-existing-projects` (old commit format, no version stamp — contradicts desirements); `## Status` says 20 child projects, actual is 21.
+
 ## [2026-04-15] [WORK] Per-child claudeMdExcludes settings
 
 Created `.claude/settings.json` in all 19 child projects excluding `projects/CLAUDE.md` from loading as a parent. Prevents factory context from bleeding into child sessions. No ancestor-specific mechanism exists in Claude Code — blanket per-child exclusion is the only option. Scaffolding protocol updated to create this file for new projects automatically.

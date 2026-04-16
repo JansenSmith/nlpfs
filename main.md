@@ -57,7 +57,7 @@ Create new NLP file system projects on demand. When prompted with project descri
 
 ### Upgrading Existing Projects
 
-`_filesys.md` updated → `cp _filesys.md <name>/_filesys.md`, propose `"upgraded _filesys.md"` per project, wait for approval before committing. Active and dormant always get upgrades; reference at judgement.
+See `desirements.md#upgrading-existing-projects` for full process. Summary: content commit → stamp hash → `cp _filesys.md <name>/_filesys.md` for active and dormant → commit each child as `"upgraded _filesys.md (<H> <msg>)"`, propose all together.
 
 ### New Project main.md Template
 
@@ -65,7 +65,7 @@ Create new NLP file system projects on demand. When prompted with project descri
 
 ## Status
 
-Active. Core design validated; compliance audit complete across all 20 child projects. Before-v1 fixes implemented. @desirements.md load intentionally retained — factory is a meta-project that should know why it does things.
+Active. Core design validated; compliance audit complete across all 21 child projects. Before-v1 fixes implemented. @desirements.md load intentionally retained — factory is a meta-project that should know why it does things.
 
 ## Next Steps
 
