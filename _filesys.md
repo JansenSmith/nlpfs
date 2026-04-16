@@ -4,7 +4,7 @@ Guides project self-maintenance: accumulation, splitting, surfacing, task flow. 
 
 **Factory-managed. Do not edit within a project.** Changes flow from factory, pushed downstream deliberately.
 
-**Filesys version:** `2c35e16`
+**Filesys version:** `8bea54b`
 
 **@-import limitation:** loaded at session start; no mid-session refresh. Edit during session = LLM sees old version until next session. Don't edit and expect immediate effect.
 
