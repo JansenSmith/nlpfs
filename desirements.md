@@ -301,18 +301,18 @@ Both templates include caveman mode on by default. Remove the behavior line to d
 
 ### Upgrading Existing Projects
 
-`_filesys.md` updated → push to child projects deliberately:
+`_filesys.md` updated → push to child projects deliberately. Never auto-pushed.
 
-1. Make content changes to `_filesys.md`.
-2. Commit factory.
-3. `git rev-parse --short HEAD` → get hash H.
-4. Update `**Filesys version:**` line in `_filesys.md` to H.
-5. Commit factory: `"stamped hash <H>"`.
-6. `cp _filesys.md <name>/_filesys.md` for each active and dormant project.
-7. Commit each child repo: `"upgraded _filesys.md (<H> <factory-commit-msg>)"`. Propose all together, wait for single approval.
-8. Reference projects: apply judgement — benefit from convention updates, not task-flow changes.
+**Version stamp process:**
+1. Make content changes to `_filesys.md`. Commit factory — this is the *content commit*.
+2. `git rev-parse --short HEAD` → get hash H (the content commit).
+3. Update `**Filesys version:**` line in `_filesys.md` to H.
+4. Commit factory: `"stamped hash <H>"`.
 
-Factory does not auto-push. Upgrades deliberate, one project at a time.
+**Distribution:**
+5. `cp _filesys.md <name>/_filesys.md` for all active and dormant projects.
+6. Commit each child: `"upgraded _filesys.md (<H> <content-commit-msg>)"` — H and message from the content commit (step 1–2), not the stamp. Propose all child commits together; wait for single approval.
+7. Reference projects: judgement call — apply convention updates; skip task-flow-only changes.
 
 ---
 
