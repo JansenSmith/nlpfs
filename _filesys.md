@@ -139,6 +139,12 @@ Anchors: lowercase, spaces → hyphens, special chars stripped. `[hi/hi]` → `h
 
 ---
 
+## Cross-Project References
+
+Content belongs in sibling project → move it, cite it (`../B/file.md`), commit per repo.
+
+---
+
 ## Accumulation Cycle
 
 1. New content lands in main.md.

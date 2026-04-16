@@ -196,6 +196,16 @@ Not clickable everywhere, but precise human-readable pointers that survive copy-
 
 **Bidirectional where meaningful.** A references B → check if back-ref belongs in B. Behavioral rule: when writing any reference, stop and check before moving on.
 
+### Cross-Project References
+
+Content accumulates in one project but belongs to a sibling project. Move it — don't duplicate.
+
+Pattern: content in project A belongs in project B → move to B, replace in A with one-line pointer (`../B/file.md`). Update B's Index. Commit each repo separately; propose both commits together and wait for single approval.
+
+Example: art project accumulated wall-mounting procedure. Belongs to home project (41dover). Moved to `../41dover/hanging.md`; art/assembly.md now points there.
+
+When to apply: content is general to a domain outside the current project; would be useful elsewhere; would duplicate or go stale if kept in both places.
+
 ---
 
 ## Behaviors
