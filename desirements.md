@@ -303,9 +303,14 @@ Both templates include caveman mode on by default. Remove the behavior line to d
 
 `_filesys.md` updated → push to child projects deliberately:
 
-1. `cp _filesys.md <name>/_filesys.md` for each active and dormant project.
-2. Commit in each child repo: propose `"upgraded _filesys.md"`, wait for approval.
-3. Reference projects: apply judgement — benefit from convention updates, not task-flow changes.
+1. Make content changes to `_filesys.md`.
+2. Commit factory.
+3. `git rev-parse --short HEAD` → get hash H.
+4. Update `**Filesys version:**` line in `_filesys.md` to H.
+5. Commit factory: `"stamped hash <H>"`.
+6. `cp _filesys.md <name>/_filesys.md` for each active and dormant project.
+7. Commit each child repo: `"upgraded _filesys.md (<H> <factory-commit-msg>)"`. Propose all together, wait for single approval.
+8. Reference projects: apply judgement — benefit from convention updates, not task-flow changes.
 
 Factory does not auto-push. Upgrades deliberate, one project at a time.
 
