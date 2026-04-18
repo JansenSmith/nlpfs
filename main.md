@@ -81,6 +81,8 @@ _(empty)_
 
 - **[hi/lo] LLM vs builder content convention** — `>` blockquote for LLM-generated additions; behavioral rule against silently overwriting builder prose. See `assessment.md#5-context-poisoning-unaddressed`.
 
+- **[lo/hi] Commit message guidance** — current style guidance (lowercase, past tense, no period) doesn't address substance. LLMs default to listing touched files, which duplicates the diff. Add to `_filesys.md` Git section: "describe what changed and why — not which files were touched; files are visible in the diff." Temporary local version in `art/main.md` Behaviors — remove after pushing downstream.
+
 **Eventually:**
 
 - **[lo/lo] Memory folder audit** — audit `~/.claude/projects/*/memory/`; migrate content to project files and clear folders. Blocked on factory v1.
