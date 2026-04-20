@@ -91,4 +91,6 @@ _(empty)_
 
 - **[lo/lo] Source freshness convention** — when does immutable source need re-checking? See `assessment.md#eventually`.
 
+- **[lo/lo] completed.md efficiency** — append-only logs should stay oldest-first (natural, simple `echo >>`). Cold-start protocol reads completed.md to find last entry date — with oldest-first, use `tail -30 completed.md` instead of reading the whole file. Add to `_filesys.md`: cold-start reads `tail -30 completed.md`; completed logs default oldest-first.
+
 - **[lo/lo] Search tooling** — scale-triggered: needed when project grows beyond what fits in context window. Recommended tools: qmd (hybrid BM25 + vector, CLI + MCP server) or DIY search script. See `sources/karpathy-llm-wiki.md#optional-cli-tools`.
