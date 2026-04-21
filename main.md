@@ -81,6 +81,8 @@ _(empty)_
 
 - **[hi/lo] LLM vs builder content convention** — `>` blockquote for LLM-generated additions; behavioral rule against silently overwriting builder prose. See `assessment.md#5-context-poisoning-unaddressed`.
 
+- **[hi/lo] Source file content convention** — `_filesys.md` Ingest section says "convert to Markdown" but doesn't distinguish between ingest (faithful transcription of original) and synthesize (distribute to project files). LLMs collapse these into one step and write synthesis into the source file. Fix: clarify in `_filesys.md` Ingest that `sources/<name>.md` must be a faithful markdown rendering of the original; synthesis distributes separately to project files. These are two distinct operations. Temporary local version in `art/main.md` Behaviors — remove after pushing downstream.
+
 - **[lo/hi] Commit message guidance** — current style guidance (lowercase, past tense, no period) doesn't address substance. LLMs default to listing touched files, which duplicates the diff. Add to `_filesys.md` Git section: "describe what changed and why — not which files were touched; files are visible in the diff." Temporary local version in `art/main.md` Behaviors — remove after pushing downstream.
 
 **Eventually:**
