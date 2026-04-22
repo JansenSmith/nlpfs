@@ -85,6 +85,8 @@ _(empty)_
 
 - **[lo/hi] Commit message guidance** — current style guidance (lowercase, past tense, no period) doesn't address substance. LLMs default to listing touched files, which duplicates the diff. Add to `_filesys.md` Git section: "describe what changed and why — not which files were touched; files are visible in the diff." Temporary local version in `art/main.md` Behaviors — remove after pushing downstream.
 
+- **[hi/lo] Scaffold default permissions audit** — some tool permissions (e.g. `wl-copy`, web search) recur across many projects and may be worth including in the scaffold `.claude/settings.json` by default. Review which permissions appear in most project settings and evaluate case-by-case whether they belong in the template. Surfaced from omarchy project where wl-copy clipboard use is a per-session pattern.
+
 **Eventually:**
 
 - **[lo/lo] Memory folder audit** — audit `~/.claude/projects/*/memory/`; migrate content to project files and clear folders. Blocked on factory v1.
