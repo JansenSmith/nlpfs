@@ -85,6 +85,8 @@ _(empty)_
 
 - **[lo/hi] Commit message guidance** — current style guidance (lowercase, past tense, no period) doesn't address substance. LLMs default to listing touched files, which duplicates the diff. Add to `_filesys.md` Git section: "describe what changed and why — not which files were touched; files are visible in the diff." Temporary local version in `art/main.md` Behaviors — remove after pushing downstream.
 
+- **[hi/lo] Scaffold clipboard behavior** — when asking the user to run a command in an external terminal, pipe it to `wl-copy` so it lands in their clipboard. Consider adding to `_filesys.md` Behaviors as a universal pattern (Wayland-specific; may need platform guard).
+
 - **[hi/lo] Scaffold default permissions audit** — some tool permissions (e.g. `wl-copy`, web search) recur across many projects and may be worth including in the scaffold `.claude/settings.json` by default. Review which permissions appear in most project settings and evaluate case-by-case whether they belong in the template. Surfaced from omarchy project where wl-copy clipboard use is a per-session pattern.
 
 **Eventually:**
