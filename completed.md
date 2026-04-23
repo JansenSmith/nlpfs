@@ -51,3 +51,14 @@ Added ingest/lint/sources patterns, `@_filesys.md` + `@desirements.md` imports, 
 `## Project Structure` renamed to `## Index` across all files.
 Source: `sources/karpathy-llm-wiki.md`.
 Files touched: `desirements.md`, `_filesys.md`, `template.md`, `main.md`.
+
+## [2026-04-23] [WORK] Process doc student prompt
+
+Spidered all 25 child projects via Index sections; collected 12 process docs into `/tmp/process-docs/`.
+Created `process-doc-prompts.md` — caveman-style LLM interview prompt for student process doc co-creation.
+Files touched: `process-doc-prompts.md` (new), `main.md`.
+
+## [2026-04-23] [LINT] Prep-for-exit lint
+
+Files on disk match Index. No orphans, no stale refs, no contradictions.
+Status updated: audit count (21) vs current count (25) clarified; improvements-for-filesys-pushdown work noted as active.
