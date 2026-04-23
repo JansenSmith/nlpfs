@@ -21,6 +21,7 @@ Create new NLP file system projects on demand. When prompted with project descri
 - `sources/caveman.md` — Caveman terse-output skill: always-on snippet, install, benchmarks, skills (immutable source)
 - `research-pkm-llm.md` — synthesized research: PKM science, LLM failure modes, Claude-specific patterns
 - `assessment.md` — factory assessment: critique, consistency issues, priority fixes
+- `process-doc-prompts.md` — student-facing LLM prompt: interview rules for co-creating process docs
 
 ## Behaviors
 
