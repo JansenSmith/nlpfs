@@ -88,11 +88,15 @@ _(empty)_
 
 - **[hi/lo] "show X" opens markdown in vmd** — when builder says "show X" and X resolves to a `.md` file, run `Bash(vmd <resolved-path> &)`. Resolution should be contextual: use project Index, Next Steps, and session context to map fuzzy references (e.g. "show me the draft" → nearest draft `.md`). Add as universal behavior in `_filesys.md` Behaviors. Requires `vmd` installed (`npm install -g vmd`).
 
+- **[lo/hi] vmd auto-refreshes on save** — `_filesys.md` Behaviors should note that vmd auto-refreshes when the underlying `.md` file is written; LLM does not need to re-run `vmd <file> &` after edits. Opening a second instance adds clutter. Only open vmd when the user asks to see the file; after that, edits appear automatically.
+
 - **[hi/lo] Scaffold clipboard behavior** — when asking the user to run a command in an external terminal, pipe it to `wl-copy` so it lands in their clipboard. Consider adding to `_filesys.md` Behaviors as a universal pattern (Wayland-specific; may need platform guard).
 
 - **[hi/lo] Citation validation protocol** — AI role: guide human to source (URL + what to look for), assess passages human provides, flag whether claim appears supported. Human role: open source independently, read it, provide relevant passages to AI, make final determination. AI marks status field only after human confirms. Add as universal behavior in `_filesys.md` or scaffold template Behaviors.
 
 - **[hi/lo] Scaffold default permissions audit** — some tool permissions (e.g. `wl-copy`, web search) recur across many projects and may be worth including in the scaffold `.claude/settings.json` by default. Review which permissions appear in most project settings and evaluate case-by-case whether they belong in the template. Surfaced from omarchy project where wl-copy clipboard use is a per-session pattern.
+
+- **[lo/hi] Session-scoped commit staging** — on commit proposal, auto-stage only files the LLM touched in the current session. Any other modified files in `git status` get mentioned explicitly ("also modified, not touched this session — stage manually if intended") but not staged. Add to `_filesys.md` Git section. Reduces crossed commits when multiple sessions work the same repo; does not help when two sessions touch the same file — flag that case explicitly so builder can resolve.
 
 **Eventually:**
 
