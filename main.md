@@ -90,11 +90,15 @@ _(empty)_
 
 - **[lo/hi] vmd auto-refreshes on save** — `_filesys.md` Behaviors should note that vmd auto-refreshes when the underlying `.md` file is written; LLM does not need to re-run `vmd <file> &` after edits. Opening a second instance adds clutter. Only open vmd when the user asks to see the file; after that, edits appear automatically.
 
+- **[hi/lo] Document vmd in scaffold template** — child projects should know `vmd` is the CLI markdown viewer (`vmd <file.md>`, auto-refreshes on save). Add a note to `_filesys.md` Behaviors or the scaffold template so child LLMs don't need to be told every session. See `../vmd/main.md` for patches and details.
+
 - **[hi/lo] Scaffold clipboard behavior** — when asking the user to run a command in an external terminal, pipe it to `wl-copy` so it lands in their clipboard. Consider adding to `_filesys.md` Behaviors as a universal pattern (Wayland-specific; may need platform guard).
 
 - **[hi/lo] Citation validation protocol** — AI role: guide human to source (URL + what to look for), assess passages human provides, flag whether claim appears supported. Human role: open source independently, read it, provide relevant passages to AI, make final determination. AI marks status field only after human confirms. Add as universal behavior in `_filesys.md` or scaffold template Behaviors.
 
 - **[hi/lo] Scaffold default permissions audit** — some tool permissions (e.g. `wl-copy`, web search) recur across many projects and may be worth including in the scaffold `.claude/settings.json` by default. Review which permissions appear in most project settings and evaluate case-by-case whether they belong in the template. Surfaced from omarchy project where wl-copy clipboard use is a per-session pattern.
+
+- **[hi/lo] Commit proposal required — add to _filesys.md Git** — factory Behaviors (line 33) already specifies: always show proposed commit message + file list, wait for explicit approval before `git commit` or `git push`. Not in `_filesys.md`, so child sessions don't inherit it. Add to `_filesys.md` Git section. Failure mode: LLM inferred approval from general closure language without surfacing the proposal step.
 
 - **[lo/hi] Session-scoped commit staging** — on commit proposal, auto-stage only files the LLM touched in the current session. Any other modified files in `git status` get mentioned explicitly ("also modified, not touched this session — stage manually if intended") but not staged. Add to `_filesys.md` Git section. Reduces crossed commits when multiple sessions work the same repo; does not help when two sessions touch the same file — flag that case explicitly so builder can resolve.
 
@@ -109,3 +113,5 @@ _(empty)_
 - **[lo/lo] completed.md efficiency** — append-only logs should stay oldest-first (natural, simple `echo >>`). Cold-start protocol reads completed.md to find last entry date — with oldest-first, use `tail -30 completed.md` instead of reading the whole file. Add to `_filesys.md`: cold-start reads `tail -30 completed.md`; completed logs default oldest-first.
 
 - **[lo/lo] Search tooling** — scale-triggered: needed when project grows beyond what fits in context window. Recommended tools: qmd (hybrid BM25 + vector, CLI + MCP server) or DIY search script. See `sources/karpathy-llm-wiki.md#optional-cli-tools`.
+
+- **[lo/lo] Claude Code hook to enforce post-commit transition behavior** — behaviors documented in `main.md` aren't reliably self-applied at commit time. A Claude Code hook (`PostToolUse` on Bash git commit) could inject a reminder prompt after every commit, ensuring the LLM surfaces the summary + next-step transition. Investigate hook mechanism via `update-config` skill; add to `_filesys.md` Behaviors as a universal pattern for behavior enforcement at tool boundaries.
