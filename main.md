@@ -66,7 +66,7 @@ See `desirements.md#upgrading-existing-projects` for full process. Summary: cont
 
 ## Status
 
-Active. Compliance audit complete (21 projects at time of audit; 25 total as of 2026-04-23). Improvements actively accumulating for downstream filesys push. @desirements.md load intentionally retained — factory is a meta-project that should know why it does things.
+Active. Compliance audit complete (21 projects at time of audit; 26 total as of 2026-05-07). Improvements actively accumulating for downstream filesys push. @desirements.md load intentionally retained — factory is a meta-project that should know why it does things.
 
 ## Next Steps
 
