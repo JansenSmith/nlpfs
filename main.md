@@ -92,6 +92,8 @@ _(empty)_
 
 - **[hi/lo] Document vmd in scaffold template** — child projects should know `vmd` is the CLI markdown viewer (`vmd <file.md>`, auto-refreshes on save). Add a note to `_filesys.md` Behaviors or the scaffold template so child LLMs don't need to be told every session. See `../vmd/main.md` for patches and details.
 
+- **[hi/lo] Document markdown footnotes in _filesys.md** — vmd supports standard markdown footnotes: inline `[^1]`, definition `[^1]: text`. Place definitions immediately after the section they annotate. Add as a note in `_filesys.md` Behaviors alongside the vmd behavior. See `../vmd/main.md#footnote-support` for install, patch, and usage example.
+
 - **[hi/lo] Scaffold clipboard behavior** — when asking the user to run a command in an external terminal, pipe it to `wl-copy` so it lands in their clipboard. Consider adding to `_filesys.md` Behaviors as a universal pattern (Wayland-specific; may need platform guard).
 
 - **[hi/lo] Citation validation protocol** — AI role: guide human to source (URL + what to look for), assess passages human provides, flag whether claim appears supported. Human role: open source independently, read it, provide relevant passages to AI, make final determination. AI marks status field only after human confirms. Add as universal behavior in `_filesys.md` or scaffold template Behaviors.
