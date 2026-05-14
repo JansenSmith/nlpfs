@@ -76,6 +76,10 @@ _(empty)_
 
 **High importance:**
 
+- **[hi/lo] Adjacent-style communication recognition** — builder often communicates intent via *adjacent* things they would expect to hear, not literal dictation. Example: framing a methodology rule by speaking it aloud in builder's own personal style ("when I'm ready, I'll let you know"). Treat as illustrative signal of gist, not quoted template to mimic. Two implications: (1) don't render builder's voice verbatim into docs; describe the rule directly. (2) recognize quoted illustrative phrases as adjacent communication, not literal text to adopt.
+
+- **[hi/lo] Don't cite Claude** — use NLPFS terminology only: "LLM" for the agent, "builder" or the project-specific role term (e.g. "wizard") for the human. Product name "Claude" leaks substrate, couples to implementer, breaks if agent changes.
+
 - **[hi/lo] Define "vibes" concretely** — What's Next Protocol: "improvement most adjacent to builder's apparent current focus per `completed.md`; or, if no recent focus, shortest unblocked item regardless of domain." See `assessment.md#6-vibes-not-a-protocol`.
 
 - **[hi/lo] Backlog ceiling** — cap at ~12 items; triage required before adding when full; add creation dates for aging. See `assessment.md#3-no-backlog-decay`, `assessment.md#6-vibes-not-a-protocol`.
