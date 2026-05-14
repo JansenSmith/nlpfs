@@ -104,6 +104,8 @@ _(empty)_
 
 - **[lo/hi] Session-scoped commit staging** — on commit proposal, auto-stage only files the LLM touched in the current session. Any other modified files in `git status` get mentioned explicitly ("also modified, not touched this session — stage manually if intended") but not staged. Add to `_filesys.md` Git section. Reduces crossed commits when multiple sessions work the same repo; does not help when two sessions touch the same file — flag that case explicitly so builder can resolve.
 
+- **[hi/lo] Disable Claude in `~`** — remove the Claude session instance for the home directory (history at `~/.claude/projects/-home-jansen/`) and specifically disable Claude from running with `~` as cwd. Home isn't a project and shouldn't be a default Claude entry point — accidental sessions there accumulate cruft and have no project context. Ad-hoc sessions in other random folders are fine; this is just about blocking `~` itself. Decide mechanism (settings, hook, or wrapper) and execute.
+
 **Eventually:**
 
 - **[lo/lo] Memory folder audit** — audit `~/.claude/projects/*/memory/`; migrate content to project files and clear folders. Blocked on factory v1.
