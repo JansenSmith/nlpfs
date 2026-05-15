@@ -233,9 +233,33 @@ Audit everything touched — save to permanent files or session notes. Nothing t
 
 Version-controlled from init. Each completed task gets a commit.
 
-**Commit on task completion.** Item moves to `completed.md` → propose commit message + file list to stage. Wait for explicit approval. Never commit without approval. Same for `git push`.
+**Propose-and-wait protocol.** Item moves to `completed.md` → propose, wait for explicit typed approval, then commit. Same for `git push`. Plan-mode `allowedPrompts` is NOT approval. Inferring approval from closure language is NOT approval.
 
-**Style:** short, lowercase, past tense, no trailing period. Init message: `"init commit"`. Single line unless work warrants body.
+**Proposal format:**
+
+    **commit proposal** (`<repo-name>`)
+    msg: `<message>`
+    stage:
+    - M `<file>` +<adds> -<dels>
+    - M `<file>` +<adds> -<dels>
+
+    total: <n> files +<adds> -<dels>
+    skip: `<file>` (untracked, prior session)
+
+Repo tag = bare repo directory name (e.g. `omarchy`), not full path — helps when multiple repos are in play. Stage list = files this session touched. Skip list = untracked files NOT touched this session that the LLM is intentionally leaving out.
+
+**Approval:** explicit typed go — "commit", "yes", "go", or equivalent.
+
+**Execution discipline.** A global `PreToolUse` hook may be installed at `~/.claude/settings.json` to mechanically enforce the protocol — operate as if it is, regardless:
+
+- Stage in its own Bash call.
+- Write any approval marker in its own Bash call.
+- Run `git commit` in its own Bash call. Never chained — the hook reads the marker before the chain runs, so `... && git commit` sees the stale marker and denies.
+- First token of every commit-bearing Bash call must be literal `git`. No `cd && git`, no env-var prefix, no subshell, no pipe.
+- Supported forms: `git commit -m "..."` (inside repo) or `git -C /path commit -m "..."` (any cwd). Heredoc, `-F <file>`, `--message=`, and multi-line messages are unsupported.
+- After commit, staged tree is empty → marker self-invalidates → re-propose for next commit.
+
+**Commit Message Style:** short, lowercase, past tense, no trailing period. Single line unless work warrants body. Init message: `"init commit"`.
 - Good: `added entry to pieces.md`
 - Avoid: `Added entry to pieces.md.`
 
