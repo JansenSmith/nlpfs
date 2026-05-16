@@ -62,3 +62,16 @@ Files touched: `process-doc-prompts.md` (new), `main.md`.
 
 Files on disk match Index. No orphans, no stale refs, no contradictions.
 Status updated: audit count (21) vs current count (25) clarified; improvements-for-filesys-pushdown work noted as active.
+
+## [2026-05-16] [WORK] Pushed commit-guard protocol to _filesys.md across all children
+
+Generalized the propose-and-wait commit protocol from the validated `omarchy/commit-guard.md` reference into `_filesys.md` Git section. Distributed to all 32 child projects.
+
+Three-phase upgrade per `desirements.md#upgrading-existing-projects`:
+1. Factory content commit `177684c` — rewrote `## Git`: propose-and-wait protocol, proposal format (repo-name tag, msg, stage list with per-file +adds/-dels, totals, skip list), explicit typed approval (plan-mode allowedPrompts NOT approval), execution discipline (separate Bash calls for marker write + commit, first-token-must-be-git, supported `-m` forms, marker self-invalidation), and `**Commit Message Style**` subhead.
+2. Factory stamp commit `f712cd0` — bumped `**Filesys version:** 8bea54b` → `177684c`.
+3. 32 child upgrade commits — cp factory `_filesys.md` to each child; per-child `upgraded _filesys.md (177684c pushed commit-guard propose-and-wait protocol into _filesys.md Git section)`.
+
+Mid-batch art incident (`ac7a9c2`): wizard's earlier `git reset --mixed HEAD~1` in art had left staged files from a prior LLM commit; my batch marker (line1=41dover) validated the hash but the hook does not constrain which repo the commit targets, so an unrelated 6-file commit landed under the upgrade message. Reset `--mixed HEAD~1` in art, re-staged only `_filesys.md`, re-committed cleanly as `48adf66`. Failure mode and prevention options documented in `commit-approval-hardening.md`. Surfaced two new `[hi/lo]` items: nonce-in-marker schema and transcript-check augmentation, plus a `[hi/lo]` watch-period item to confirm no further incidents.
+
+Files touched: `_filesys.md` (factory + 32 children); `main.md`, `commit-approval-hardening.md` (new, wizard-authored), `completed.md` (factory).
