@@ -4,3 +4,9 @@
 # Except sources/
 !sources/
 !sources/**
+
+# Personal — exclude from public push
+project-list.md
+completed.md
+improvements.md
+assessment.md
