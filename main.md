@@ -10,6 +10,8 @@ Create new NLP file system projects on demand. When prompted with project descri
 
 - `main.md` — this file; project brain
 - `CLAUDE.md` — symlink to main.md (Claude Code auto-load compatibility)
+- `README.md` — visitor-facing intro: what NLPFS is, feature list, how the factory works
+- `LICENSE` — AGPL-3.0-or-later
 - `desirements.md` — design documentation and source of truth for NLP file system principles
 - `_filesys.md` — operational principles template; copied into every new project. Covers self-maintenance: accumulation, splitting, surfacing, file types, task flow. Not initialization (factory's job).
 - `template.md` — new active project main.md template
