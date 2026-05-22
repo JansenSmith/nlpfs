@@ -16,14 +16,14 @@ Create new NLP file system projects on demand. When prompted with project descri
 - `_filesys.md` — operational principles template; copied into every new project. Covers self-maintenance: accumulation, splitting, surfacing, file types, task flow. Not initialization (factory's job).
 - `template.md` — new active project main.md template
 - `template-reference.md` — new reference project main.md template
-- `project-list.md` — per-project roster of all NLPFS children (state, role, description); updated on scaffold and lifecycle transitions
+- `project-list.md` — per-project roster of all NLPFS children (state, role, description); updated on scaffold and lifecycle transitions *(personal; gitignored, not in public repo)*
 - `archive/` — retired session artifacts and plan vessels; synthesis complete before archiving; human-readable record only; not indexed, not linted
-- `completed.md` — append-only log of completed work
+- `completed.md` — append-only log of completed work *(personal; gitignored, not in public repo)*
 - `sources/` — immutable ingested sources, converted to Markdown
 - `sources/karpathy-llm-wiki.md` — Karpathy LLM Wiki pattern (immutable source)
 - `sources/caveman.md` — Caveman terse-output skill: always-on snippet, install, benchmarks, skills (immutable source)
 - `research-pkm-llm.md` — synthesized research: PKM science, LLM failure modes, Claude-specific patterns
-- `assessment.md` — factory assessment: critique, consistency issues, priority fixes
+- `assessment.md` — factory assessment: critique, consistency issues, priority fixes *(personal; gitignored, not in public repo)*
 - `process-doc-prompts.md` — student-facing LLM prompt: interview rules for co-creating process docs
 - `commit-approval-hardening.md` — incident report + prevention options for the propose-and-wait commit guard (2026-05-15 violation in `art`); supports the [hi/lo] nonce-in-marker improvement
 
@@ -48,11 +48,11 @@ Create new NLP file system projects on demand. When prompted with project descri
 6. Run `ln -s main.md <name>/CLAUDE.md`.
 7. Copy `_filesys.md` into `<name>/_filesys.md`.
 8. Create `<name>/.gitignore`: default ignores all subdirectories (`*/`) except `sources/` (`!sources/`, `!sources/**`). Assess two things: (a) any existing subdirectories with content worth tracking; (b) whether the project's domain naturally calls for subdirectories (e.g. characters/, models/, assets/) — discuss with builder and add `!<dir>/` + `!<dir>/**` exceptions for any agreed dirs.
-9. Create `<name>/.claude/settings.json` with parent exclusion:
+9. Create `<name>/.claude/settings.json` with parent exclusion. Substitute the absolute path to this factory's `CLAUDE.md` (compute at scaffold time — e.g. `realpath ../CLAUDE.md` from the new child directory):
    ```json
    {
      "claudeMdExcludes": [
-       "/home/jansen/Documents/projects/CLAUDE.md"
+       "<absolute path to factory CLAUDE.md>"
      ]
    }
    ```
@@ -78,4 +78,4 @@ _(empty)_
 
 ## Improvements
 
-See `improvements.md`.
+See `improvements.md` *(personal; gitignored, not in public repo)*.

@@ -1,6 +1,6 @@
 # Commit Approval Hardening
 
-LLM committed without fresh approval after a `git reset`. Documents the failure mode, root cause, and prevention options. Companion to `../omarchy/commit-guard.md` and the `_filesys.md` Git section.
+LLM committed without fresh approval after a `git reset`. Documents the failure mode, root cause, and prevention options. Companion to the `_filesys.md` Git section (canonical protocol) and `../omarchy/commit-guard.md` (the original reference implementation, in a separate sibling project not included here).
 
 ## Incident (2026-05-15)
 
@@ -26,7 +26,7 @@ The rule "Inferring approval from closure language is NOT approval" exists. LLM 
 
 ## Why the existing hook didn't catch this
 
-`commit-guard.md` validates marker = `(repo_path, staged_tree_hash, message)`. After reset:
+The hook validates marker = `(repo_path, staged_tree_hash, message)`. After reset:
 - `staged_tree_hash` is fresh (different from prior commit's hash, because the staged set is different)
 - `message` is fresh (LLM wrote a new one)
 - Marker matches the new staged state → hook allows
@@ -64,7 +64,7 @@ Catches the exact failure mode here. Doesn't catch other inference scenarios (e.
 
 ### Option 3 — Reset/amend invalidates prior approval (rule sharpening)
 
-Add to `commit-guard.md` and `_filesys.md` Git section:
+Add to `_filesys.md` Git section:
 
 > Any `git reset`, `git commit --amend`, or rebased commit invalidates all prior approvals on the affected commit(s). Re-approval is required even if the resulting staged tree appears identical to a previously approved one. **Approval attaches to the act of committing, not to the file set.**
 
@@ -78,10 +78,10 @@ Option 2 is lighter-touch and could ship sooner if Option 1's UX cost is undesir
 
 ## Where the rule belongs
 
-The propose-and-wait protocol lives in `_filesys.md` (currently being pushed downstream from `../omarchy/commit-guard.md` per the related `[hi/hi] Push commit-guard protocol to _filesys.md` improvement). The hardening change should land in the same place — extend the marker schema and add the reset-invalidation rule when generalizing the protocol to `_filesys.md`.
+The propose-and-wait protocol lives in `_filesys.md` (generalized there in commit `177684c` from the original reference implementation in the sibling `omarchy` project). The hardening change should land in the same place — extend the marker schema and add the reset-invalidation rule directly in `_filesys.md`.
 
 ## Related
 
-- `../omarchy/commit-guard.md` — current reference implementation
-- `_filesys.md` Git section — destination for generalized protocol
-- `main.md` Improvements `[hi/hi] Push commit-guard protocol to _filesys.md` — parent work
+- `_filesys.md` Git section — canonical protocol; destination for hardening
+- `../omarchy/commit-guard.md` — original reference implementation in a sibling project (not included in this repo)
+- `main.md` Improvements (personal, gitignored) — tracks the follow-on hardening work
